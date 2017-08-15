@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "1.0.11"
+    "react-scripts": "1.0.11",
+    "redux-devtools-extension": "^2.13.2"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -15,8 +16,10 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
     "redux-saga": "^0.15.6",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "streamsaver": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,10 +1,37 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import logo from '../../logo.svg';
 import './app.css';
 import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Grid, Row } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
 
 class App extends Component {
+    static propTypes = {
+        downloadData: PropTypes.func.isRequired,
+        fetchData: PropTypes.func.isRequired,
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            coin: '',
+            dateFormat: '',
+            from: '',
+            to: '',
+            granularity: 1
+        }
+    }
+
+    fetchData = () => {
+        console.log('fetch data called');
+        this.props.fetchData(this.state);
+    };
+
+    downloadData = () => {
+        this.props.downloadData();
+    };
+
     render() {
         return (
             <Form inline>
@@ -51,7 +78,7 @@ class App extends Component {
                             <FormControl componentClass="select" placeholder="select">
                                 <option value="ddmmyy">dd-mm-yy</option>
                                 <option value="mmddyy">mm-dd-yy</option>
-                                <option value="custom">custom format</option>
+                                <option value="custom">Custom Format</option>
                             </FormControl>
                         </FormGroup>
                     </Row>
@@ -88,7 +115,8 @@ class App extends Component {
                         </FormGroup>
                     </Row>
                     <Row>
-                        <Button>Download</Button>
+                        <Button onClick={this.fetchData}>Fetch Data</Button>
+                        <Button onClick={this.downloadData}>Download Data</Button>
                     </Row>
                 </Grid>
             </Form>
