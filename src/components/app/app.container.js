@@ -1,11 +1,20 @@
 import { connect } from 'react-redux';
 import App from './app.component';
 import { downloadData, fetchData } from '../../state/data/data.actions';
+import { selectHistoricPricesSample } from '../../state/data/data.selectors';
 
-console.log({ fetchData});
+const mapStateToProps = (state) => {
+    const retVal = selectHistoricPricesSample(state)
+    console.log({ state, retVal });
+
+    return {
+        historicPricesSample: selectHistoricPricesSample(state)
+    }
+};
+
 const mapDispatchToProps = ({
-      downloadData,
+    downloadData,
     fetchData
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps , mapDispatchToProps)(App);

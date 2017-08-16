@@ -9,6 +9,7 @@ class App extends Component {
     static propTypes = {
         downloadData: PropTypes.func.isRequired,
         fetchData: PropTypes.func.isRequired,
+        historicPricesSample: PropTypes.string
     };
 
     constructor(props) {
@@ -117,6 +118,17 @@ class App extends Component {
                     <Row>
                         <Button onClick={this.fetchData}>Fetch Data</Button>
                         <Button onClick={this.downloadData}>Download Data</Button>
+                    </Row>
+                    <Row>
+                        <h2>Data received (first 10 items)</h2>
+                        <FormGroup controlId="formControlsTextarea">
+                            <FormControl
+                                componentClass="textarea"
+                                rows={10}
+                                cols={100}
+                                value={this.props.historicPricesSample}
+                            />
+                        </FormGroup>
                     </Row>
                 </Grid>
             </Form>
