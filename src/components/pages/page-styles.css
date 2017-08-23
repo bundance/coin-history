@@ -1,0 +1,11 @@
+.row__padding--bottom {
+    margin-bottom: 10px;
+}
+
+.row__header {
+    margin-top: -20px;
+}
+
+.well {
+    padding: 20px 30px 20px 30px !important;
+}

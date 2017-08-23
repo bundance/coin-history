@@ -9,7 +9,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap-theme.css";
 import reducer from "./state/index";
-import App from "./components/app/app.container";
+import App from "./components/app/app.component";
 import initialState from "./state/initial-state";
 import sagas from "./state/sagas-registration";
 

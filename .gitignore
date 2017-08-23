@@ -35,3 +35,6 @@ reports
 yarn.lock
 package-lock.json
 
+# config
+src/config/api-keys.js
+
