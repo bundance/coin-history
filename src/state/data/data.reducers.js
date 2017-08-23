@@ -14,7 +14,7 @@ function handleFormChange(state, action) {
     return {
         ...state,
         [dataStoreKeys.FORM_VALUES]: Object.assign({}, state[dataStoreKeys.FORM_VALUES], action.payload)
-    }
+    };
 }
 
 function setHistoricPricesSample(state, action) {
@@ -27,13 +27,17 @@ function setHistoricPricesSample(state, action) {
 function setFromDate(state, action) {
     return {
         ...state,
-        [dataStoreKeys.FROM_DATE]: action.payload
+        [dataStoreKeys.FORM_VALUES]: Object.assign(
+            {}, state[dataStoreKeys.FORM_VALUES], { [dataStoreKeys.FROM_DATE]: action.payload }
+        )
     }
 }
 
 function setToDate(state, action) {
     return {
         ...state,
-        [dataStoreKeys.TO_DATE]: action.payload
+        [dataStoreKeys.FORM_VALUES]: Object.assign(
+            {}, state[dataStoreKeys.FORM_VALUES], { [dataStoreKeys.TO_DATE]: action.payload }
+        )
     }
 }
