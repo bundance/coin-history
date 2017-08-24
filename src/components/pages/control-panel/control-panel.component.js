@@ -15,7 +15,6 @@ class ControlPanel extends React.Component {
     };
 
     fetchData = () => {
-        // blobby - you're here. This needs wiring up to formValues
         this.props.fetchData(this.props.formValues);
     };
 
@@ -48,13 +47,13 @@ class ControlPanel extends React.Component {
                                     <h2>Options</h2>
                                 </Row>
                                 <Row>
-                                    <FormGroup controlId="market">
+                                    <FormGroup controlId="api">
                                         <ControlLabel>Market: </ControlLabel>
                                         <FormControl
                                             componentClass="select"
                                             placeholder="select"
                                             onChange={this.handleFormChange}
-                                            value={formValues.market}
+                                            value={formValues.api}
                                         >
                                             <option value="Poloniex">Poloniex</option>
                                             <option value="Genesis">Genesis</option>
