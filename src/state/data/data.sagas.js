@@ -11,16 +11,10 @@ export function* watchDownloadData() {
 export function* attemptFetchDataSaga(action) {
     try {
         const formValues = yield select(getFormValues);
-
-        console.log({ formValues });
-
         const prices = yield call(fetchHistoricalPrices, formValues.api, formValues.coin);
-        console.log('******* attemptDownloadDataSaga response:', { prices } );
 
         if(prices && prices.length) {
             const formattedData = formatData(prices.slice(0, 10));
-            console.log({ formattedData });
-
 
             yield put(dataActions.setHistoricPricesSample(formattedData));
         }
@@ -29,7 +23,6 @@ export function* attemptFetchDataSaga(action) {
     }
 }
 
-// blobby - you're here. Format this data.
 function formatData(data) {
     return data && data.join('\n');
 }

@@ -12,19 +12,12 @@ export const getFormValues = createSelector(
     mapUIApiNameToMarketApiName
 );
 
-function getApiNameFromFormValue(formValues) {
-    return R.path(['api'], formValues);
-}
+const getApiNameFromFormValue = R.path(['api']);
 
 function mapUIApiNameToMarketApiName(formValues) {
-    console.log('mapUIApiNameToMarketApiName', { formValues});
     let api = getApiNameFromFormValue(formValues);
 
     api = api === 'CoinBase' ? 'gdax' : 'quandl';
 
-    const retVal =  Object.assign({}, formValues, { api });
-
-    console.log('mapUIApiNameToMarketApiName', { api, retVal });
-
-    return retVal;
+    return Object.assign({}, formValues, { api });
 }
