@@ -2,7 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import * as dataTypes from '../../constants/action-types/data.types';
 import * as dataActions from './data.actions';
 import { fetchHistoricalPrices } from '../../api/gdax/fetch-historical-prices.api';
-import { selectFromDate, selectToDate } from './data.selectors';
+import { getFormValues } from './data.selectors';
 
 export function* watchDownloadData() {
     yield takeLatest(dataTypes.FETCH_DATA, attemptFetchDataSaga);
@@ -10,12 +10,11 @@ export function* watchDownloadData() {
 
 export function* attemptFetchDataSaga(action) {
     try {
-        const start = yield select(selectFromDate);
-        const end = yield select(selectToDate);
+        const formValues = yield select(getFormValues);
 
-        console.log({ start, end });
+        console.log({ formValues });
 
-        const prices = yield call(fetchHistoricalPrices, { start, end });
+        const prices = yield call(fetchHistoricalPrices, formValues.api, formValues.coin);
         console.log('******* attemptDownloadDataSaga response:', { prices } );
 
         if(prices && prices.length) {
@@ -32,6 +31,6 @@ export function* attemptFetchDataSaga(action) {
 
 // blobby - you're here. Format this data.
 function formatData(data) {
-    return data.join('\n');
+    return data && data.join('\n');
 }
 
