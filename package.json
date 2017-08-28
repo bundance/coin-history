@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "jest-cli": "^20.0.4",
     "react-scripts": "1.0.11",
     "redux-devtools-extension": "^2.13.2"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "moment": "^2.18.1",
+    "papaparse": "^4.3.5",
     "prop-types": "^15.5.10",
     "ramda": "^0.24.1",
     "react": "^15.6.1",

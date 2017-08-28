@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import * as R from 'ramda';
 import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
+import Papa from 'papaparse';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFromDate = R.path([dataStoreKeys.DATA, dataStoreKeys.FROM_DATE]);
@@ -12,6 +13,18 @@ export const getFormValues = createSelector(
     mapUIApiNameToMarketApiName
 );
 
+export const getHistoricPricesSample = createSelector(
+    [selectHistoricPricesSample],
+    prices => {
+        const csvArray = Papa.parse(prices);
+        const csvArrayOfObjs = R.map(data => R.zipObj(['date', 'open', 'close', 'high', 'low', 'volume'], data), csvArray.data);
+        console.log({ prices, csvArray, csvArrayOfObjs });
+        return csvArrayOfObjs;
+    }
+);
+
+
+////// HELPERS //////
 const getApiNameFromFormValue = R.path(['api']);
 
 function mapUIApiNameToMarketApiName(formValues) {
@@ -21,3 +34,5 @@ function mapUIApiNameToMarketApiName(formValues) {
 
     return Object.assign({}, formValues, { api });
 }
+
+

@@ -1,23 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup, FormControl } from 'react-bootstrap';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
-const DataTable = ({
-    data
-}) => (
-    <FormGroup controlId="first10">
-        <FormControl
-            componentClass="textarea"
-            rows={10}
-            cols={39}
-            value={data}
-            readOnly
-        />
-    </FormGroup>
-);
+export default class extends React.Component {
+    static propTypes = {
+        data: PropTypes.array
+    };
 
-DataTable.propTypes = {
-    value: PropTypes.string
-};
-
-export default DataTable;
+    render() {
+        const { data } = this.props;
+        console.log({data});
+        return (
+            <div>
+                { data && <BootstrapTable
+                ref="table"
+                data={data}
+                hover
+                striped
+            >
+                <TableHeaderColumn
+                    dataSort={true}
+                    dataField="date"
+                    isKey={true}
+                >
+                    Date
+                </TableHeaderColumn>
+                <TableHeaderColumn
+                    dataSort={true}
+                    dataField="open"
+                >
+                    Open
+                </TableHeaderColumn>
+                <TableHeaderColumn
+                    dataSort={true}
+                    dataField="close"
+                >
+                    Close
+                </TableHeaderColumn>
+                <TableHeaderColumn
+                    dataSort={true}
+                    dataField="High"
+                >
+                    High
+                </TableHeaderColumn>
+                <TableHeaderColumn
+                    dataSort={true}
+                    dataField="low"
+                >
+                    Low
+                </TableHeaderColumn>
+                <TableHeaderColumn
+                    dataSort={true}
+                    dataField="volume"
+                >
+                    Volume
+                </TableHeaderColumn>
+            </BootstrapTable> }
+            </div>
+        );
+    }
+}

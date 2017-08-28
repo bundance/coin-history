@@ -10,7 +10,7 @@ class ControlPanel extends React.Component {
         formValues: PropTypes.object,
         downloadData: PropTypes.func.isRequired,
         fetchData: PropTypes.func.isRequired,
-        historicPricesSample: PropTypes.string,
+        historicPricesSample: PropTypes.array,
         setFromDate: PropTypes.func.isRequired,
         setToDate: PropTypes.func.isRequired
     };
