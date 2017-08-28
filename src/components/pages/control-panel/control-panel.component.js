@@ -55,9 +55,9 @@ class ControlPanel extends React.Component {
                                             onChange={this.handleFormChange}
                                             value={formValues.api}
                                         >
+                                            <option value="CoinBase">CoinBase</option>
                                             <option value="Poloniex">Poloniex</option>
                                             <option value="Genesis">Genesis</option>
-                                            <option value="CoinBase">CoinBase</option>
                                             <option value="Average">Average</option>
                                         </FormControl>
                                     </FormGroup>

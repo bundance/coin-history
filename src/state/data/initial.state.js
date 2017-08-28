@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export default {
     [dataStoreKeys.FORM_VALUES]: {
-        api: 'Poloniex',
+        api: 'CoinBase',
         coin: 'Bitcoin',
         granularity: 1,
         dateFormat: 'ddmmyy',
