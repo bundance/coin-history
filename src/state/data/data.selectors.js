@@ -23,6 +23,16 @@ export const getHistoricPricesSample = createSelector(
     }
 );
 
+export const getFirstTenPrices = createSelector(
+    [getHistoricPricesSample],
+    R.take(10)
+);
+
+export const getLastTenPrices = createSelector(
+    [getHistoricPricesSample],
+    R.takeLast(10)
+);
+
 
 ////// HELPERS //////
 const getApiNameFromFormValue = R.path(['api']);

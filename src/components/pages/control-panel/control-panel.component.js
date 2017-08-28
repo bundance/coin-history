@@ -10,7 +10,8 @@ class ControlPanel extends React.Component {
         formValues: PropTypes.object,
         downloadData: PropTypes.func.isRequired,
         fetchData: PropTypes.func.isRequired,
-        historicPricesSample: PropTypes.array,
+        firstTenHistoricPrices: PropTypes.array,
+        lastTenHistoricPrices: PropTypes.array,
         setFromDate: PropTypes.func.isRequired,
         setToDate: PropTypes.func.isRequired
     };
@@ -111,11 +112,11 @@ class ControlPanel extends React.Component {
                         <Col md={8}>
                             <Row>
                                 <h2>Data Received (first 10 items)</h2>
-                                <DataTable data={this.props.historicPricesSample} />
+                                <DataTable data={this.props.firstTenHistoricPrices} />
                             </Row>
                             <Row>
                                 <h2>Data Received (last 10 items)</h2>
-                                <DataTable data={this.props.historicPricesSample} />
+                                <DataTable data={this.props.lastTenHistoricPrices} />
                             </Row>
                         </Col>
                     </Row>
@@ -126,3 +127,8 @@ class ControlPanel extends React.Component {
 }
 
 export default ControlPanel;
+
+//<Row>
+//    <h2>Data Received (last 10 items)</h2>
+//    <DataTable data={this.props.historicPricesSample} />
+//</Row>
