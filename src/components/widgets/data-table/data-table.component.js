@@ -10,7 +10,7 @@ export default class extends React.Component {
 
     render() {
         const { data } = this.props;
-        console.log({data});
+
         return (
             <div> { data &&
                 <BootstrapTable
