@@ -1,5 +1,6 @@
 import * as selectors from './data.selectors';
 import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
+import moment from 'moment';
 
 describe('data selectors tests', () => {
     describe('getFirstXPrices()', () => {
@@ -25,6 +26,8 @@ describe('data selectors tests', () => {
 
             const expected = [{
                 date: 1503920460,
+                readableDate: "28-Aug-17",
+                readableTime: "12:41:00 pm",
                 open: 1,
                 close: 2,
                 high: 3,
@@ -32,6 +35,8 @@ describe('data selectors tests', () => {
                 volume: 5
             }, {
                 date: 1503920401,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:01 pm",
                 open: 11,
                 close: 12,
                 high: 13,
@@ -47,6 +52,8 @@ describe('data selectors tests', () => {
 
             const expected = [{
                 date: 1503920460,
+                readableDate: "28-Aug-17",
+                readableTime: "12:41:00 pm",
                 open: 1,
                 close: 2,
                 high: 3,
@@ -54,6 +61,8 @@ describe('data selectors tests', () => {
                 volume: 5
             }, {
                 date: 1503920401,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:01 pm",
                 open: 11,
                 close: 12,
                 high: 13,
@@ -61,6 +70,8 @@ describe('data selectors tests', () => {
                 volume: 15
             }, {
                 date: 1503920402,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:02 pm",
                 open: 21,
                 close: 22,
                 high: 23,
@@ -72,7 +83,7 @@ describe('data selectors tests', () => {
         });
     });
 
-    describe('getFirstXPrices()', () => {
+    describe('getLastXPrices()', () => {
         let mockPricesCSV;
         let mockState;
 
@@ -95,6 +106,8 @@ describe('data selectors tests', () => {
 
             const expected = [{
                 date: 1503920403,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:03 pm",
                 open: 31,
                 close: 32,
                 high: 33,
@@ -102,6 +115,8 @@ describe('data selectors tests', () => {
                 volume: 35
             }, {
                 date: 1503920404,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:04 pm",
                 open: 41,
                 close: 42,
                 high: 43,
@@ -117,6 +132,8 @@ describe('data selectors tests', () => {
 
             const expected = [{
                 date: 1503920402,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:02 pm",
                 open: 21,
                 close: 22,
                 high: 23,
@@ -124,6 +141,8 @@ describe('data selectors tests', () => {
                 volume: 25
             }, {
                 date: 1503920403,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:03 pm",
                 open: 31,
                 close: 32,
                 high: 33,
@@ -131,6 +150,8 @@ describe('data selectors tests', () => {
                 volume: 35
             }, {
                 date: 1503920404,
+                readableDate: "28-Aug-17",
+                readableTime: "12:40:04 pm",
                 open: 41,
                 close: 42,
                 high: 43,
@@ -188,5 +209,54 @@ describe('data selectors tests', () => {
         })
     });
 
+    describe('getReadableHistoricPrices()', () => {
+        let mockPricesCSV;
+        let mockState;
 
+        beforeEach(() => {
+            mockPricesCSV = `1503920460,1,2,3,4,5
+                1503920400,11,12,13,14,15`;
+
+            mockState = {
+                [dataStoreKeys.DATA]: {
+                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV
+                }
+            };
+        });
+
+
+        it('should add readableDates to each price object', () => {
+            // ARRANGE
+            const readableDate1 = moment(1503920460 * 1000).format('DD-MMM-YY');
+            const readableTime1 = moment(1503920460 * 1000).format('h:mm:ss a');
+
+            const readableDate2 = moment(1503920400 * 1000).format('DD-MMM-YY');
+            const readableTime2 = moment(1503920400 * 1000).format('h:mm:ss a');
+
+            const actual = selectors.getReadableHistoricPrices(mockState);
+
+
+            const expected = [{
+                readableDate: readableDate1,
+                readableTime: readableTime1,
+                date: 1503920460,
+                open: 1,
+                close: 2,
+                high: 3,
+                low: 4,
+                volume: 5
+            }, {
+                readableDate: readableDate2,
+                readableTime: readableTime2,
+                date: 1503920400,
+                open: 11,
+                close: 12,
+                high: 13,
+                low: 14,
+                volume: 15
+            }];
+
+            expect(actual).toEqual(expected);
+        });
+    })
 });

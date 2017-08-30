@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import * as R from 'ramda';
 import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
 import Papa from 'papaparse';
+import moment from 'moment';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFromDate = R.path([dataStoreKeys.DATA, dataStoreKeys.FROM_DATE]);
@@ -48,13 +49,25 @@ export const getHistoricPricesSample = createSelector(
     )
 );
 
-export const getFirstXPrices = R.curry((x,state) => createSelector(
+export const getReadableHistoricPrices = createSelector(
     [getHistoricPricesSample],
+    prices => {
+        return R.map(price => {
+            price.readableDate = moment(price.date * 1000).format('DD-MMM-YY');
+            price.readableTime = moment(price.date * 1000).format('h:mm:ss a');
+
+            return price;
+        }, prices)
+    }
+);
+
+export const getFirstXPrices = R.curry((x, state) => createSelector(
+    [getReadableHistoricPrices],
     R.take(x)
 )(state));
 
 export const getLastXPrices = R.curry((x, state) => createSelector(
-    [getHistoricPricesSample],
+    [getReadableHistoricPrices],
     R.takeLast(x)
 )(state));
 
