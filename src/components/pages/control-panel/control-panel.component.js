@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, ControlLabel, Form, FormControl, FormGroup, Grid, Row, Well } from 'react-bootstrap';
 import DatePicker from 'react-bootstrap-date-picker';
+import DataTable from '../../widgets/data-table/data-table.component';
 import '../page-styles.css';
 
 class ControlPanel extends React.Component {
@@ -9,7 +10,8 @@ class ControlPanel extends React.Component {
         formValues: PropTypes.object,
         downloadData: PropTypes.func.isRequired,
         fetchData: PropTypes.func.isRequired,
-        historicPricesSample: PropTypes.string,
+        firstTenHistoricPrices: PropTypes.array,
+        lastTenHistoricPrices: PropTypes.array,
         setFromDate: PropTypes.func.isRequired,
         setToDate: PropTypes.func.isRequired
     };
@@ -110,27 +112,11 @@ class ControlPanel extends React.Component {
                         <Col md={8}>
                             <Row>
                                 <h2>Data Received (first 10 items)</h2>
-                                <FormGroup controlId="first10">
-                                    <FormControl
-                                        componentClass="textarea"
-                                        rows={10}
-                                        cols={39}
-                                        value={this.props.historicPricesSample}
-                                        readOnly
-                                    />
-                                </FormGroup>
+                                <DataTable data={this.props.firstTenHistoricPrices} />
                             </Row>
                             <Row>
                                 <h2>Data Received (last 10 items)</h2>
-                                <FormGroup controlId="last10">
-                                    <FormControl
-                                        componentClass="textarea"
-                                        rows={10}
-                                        cols={39}
-                                        value={this.props.historicPricesSample}
-                                        readOnly
-                                    />
-                                </FormGroup>
+                                <DataTable data={this.props.lastTenHistoricPrices} />
                             </Row>
                         </Col>
                     </Row>
@@ -141,3 +127,8 @@ class ControlPanel extends React.Component {
 }
 
 export default ControlPanel;
+
+//<Row>
+//    <h2>Data Received (last 10 items)</h2>
+//    <DataTable data={this.props.historicPricesSample} />
+//</Row>
