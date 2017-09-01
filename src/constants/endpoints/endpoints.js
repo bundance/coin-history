@@ -7,4 +7,3 @@ export const endpoints = {
         gdax: coin => `https://api.gdax.com/products/${coin}/candles`
     }
 };
-
