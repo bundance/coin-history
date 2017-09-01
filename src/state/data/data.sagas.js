@@ -14,6 +14,7 @@ export function* attemptFetchDataSaga(action) {
         const prices = yield call(fetchHistoricalPrices, formValues.api, formValues.coin);
 
         if(prices && prices.length) {
+            // const formattedData = formatData(prices.slice(0, 10));
             const formattedData = formatData(prices);
 
             yield put(dataActions.setHistoricPricesSample(formattedData));

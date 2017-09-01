@@ -127,3 +127,8 @@ class ControlPanel extends React.Component {
 }
 
 export default ControlPanel;
+
+//<Row>
+//    <h2>Data Received (last 10 items)</h2>
+//    <DataTable data={this.props.historicPricesSample} />
+//</Row>
