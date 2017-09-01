@@ -3,11 +3,12 @@ import * as R from 'ramda';
 import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
 import Papa from 'papaparse';
 import moment from 'moment';
-
+import trace from '../../dev/trace';
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFromDate = R.path([dataStoreKeys.DATA, dataStoreKeys.FROM_DATE]);
 export const selectToDate = R.path([dataStoreKeys.DATA, dataStoreKeys.TO_DATE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
+import helpers from '../../utils/helpers';
 
 export const getFormValues = createSelector(
     [selectFormValues],
@@ -49,22 +50,29 @@ export const getHistoricPricesSample = createSelector(
     )
 );
 
+
+const getReadableDateTime = dt => ({
+    readableDate: moment(dt).format('DD-MMM-YY'),
+    readableTime: moment(dt).format('h:mm:ss a')
+});
+export const getDateFromPrice = R.converge(R.multiply(1000), [R.path(['date'])]);
+const getReadableDateTimeFromPrice = R.compose(getReadableDateTime, getDateFromPrice);
+
 export const getReadableHistoricPrices = createSelector(
     [getHistoricPricesSample],
-    prices => {
-        return R.map(price => {
-            price.readableDate = moment(price.date * 1000).format('DD-MMM-YY');
-            price.readableTime = moment(price.date * 1000).format('h:mm:ss a');
-
-            return price;
-        }, prices)
-    }
+    R.reduce(
+        helpers.useWithFlipped(
+            R.append, [R.converge(R.merge, [R.identity, getReadableDateTimeFromPrice]), R.identity]
+        ),
+    [])
 );
+
 
 export const getFirstXPrices = R.curry((x, state) => createSelector(
     [getReadableHistoricPrices],
     R.take(x)
 )(state));
+
 
 export const getLastXPrices = R.curry((x, state) => createSelector(
     [getReadableHistoricPrices],

@@ -13,7 +13,6 @@ import App from "./components/app/app.component";
 import initialState from "./state/initial-state";
 import sagas from "./state/sagas-registration";
 
-// blobby - you're here. Your sagas aren't being called. Probelm with redux-saga?
 const sagaMiddleware = createSagaMiddleware();
 
 let store = createStore(

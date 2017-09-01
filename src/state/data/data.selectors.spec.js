@@ -235,7 +235,6 @@ describe('data selectors tests', () => {
 
             const actual = selectors.getReadableHistoricPrices(mockState);
 
-
             const expected = [{
                 readableDate: readableDate1,
                 readableTime: readableTime1,
@@ -258,5 +257,11 @@ describe('data selectors tests', () => {
 
             expect(actual).toEqual(expected);
         });
-    })
+    });
+
+    describe('getDateFromPrice()', () => {
+        it('should get the date from th orice object', () => {
+            expect(selectors.getDateFromPrice({date: 10})).toEqual(10000);
+        });
+    });
 });
