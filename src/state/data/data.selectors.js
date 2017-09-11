@@ -4,17 +4,42 @@ import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
 import Papa from 'papaparse';
 import moment from 'moment';
 import helpers from '../../utils/helpers';
-
+import appHelpers from '../../helpers/app.helpers';
+import trace from '../../dev/trace';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFromDate = R.path([dataStoreKeys.DATA, dataStoreKeys.FROM_DATE]);
 export const selectToDate = R.path([dataStoreKeys.DATA, dataStoreKeys.TO_DATE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
 
+const diffInSecs = (from, to) => moment(to).diff(moment(from), 'seconds');
+
+const granularityDivisor = R.divide(R.__, 200);
+
+export const calculateGranularity = R.compose(
+    Math.round,
+    granularityDivisor,
+    diffInSecs
+);
+
+
+export const getGranularity = createSelector(
+    [selectFromDate, selectToDate],
+    calculateGranularity
+);
+
+
+export const getGranularityFromFormValues = R.converge(
+    calculateGranularity, [R.path([dataStoreKeys.FROM_DATE]), R.path([dataStoreKeys.TO_DATE])]
+);
+
+
+
 export const getFormValues = createSelector(
     [selectFormValues],
-    mapUIApiNameToMarketApiName
+    R.converge(R.mergeAll, [R.identity, getMarketApiName, getGranularityFromFormValues])
 );
+
 
 /**
  * getHistoricPricesSample object - pass in the state object, and it returns an
@@ -84,10 +109,10 @@ export const getLastXPrices = R.curry((x, state) => createSelector(
 ////// HELPERS //////
 const getApiNameFromFormValue = R.path(['api']);
 
-function mapUIApiNameToMarketApiName(formValues) {
-    let api = getApiNameFromFormValue(formValues);
+export function getMarketApiName(formValues) {
+    const uiApiName = getApiNameFromFormValue(formValues);
 
-    api = api === 'CoinBase' ? 'gdax' : 'quandl';
+    const api = appHelpers.mapUIApiNameToMarketApiName(uiApiName);
 
     return Object.assign({}, formValues, { api });
 }
