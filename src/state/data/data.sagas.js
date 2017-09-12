@@ -13,11 +13,7 @@ export function* watchDownloadData() {
 export function* attemptFetchDataSaga(action) {
     try {
         const formValues = yield select(getFormValues);
-        console.log({ formValues });
-
         const granularity = yield call(getGranularityFromFormValues, formValues);
-
-        console.log({ granularity });
 
         const prices = yield call(
             fetchHistoricalPrices,

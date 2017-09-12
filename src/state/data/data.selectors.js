@@ -87,6 +87,7 @@ const getReadableDateTime = dt => ({
     readableDate: moment(dt).format('DD-MMM-YY'),
     readableTime: moment(dt).format('h:mm:ss a')
 });
+
 export const getDateFromPrice = R.converge(R.multiply(1000), [R.path(['date'])]);
 const getReadableDateTimeFromPrice = R.compose(getReadableDateTime, getDateFromPrice);
 
