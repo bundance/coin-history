@@ -8,13 +8,20 @@ import appHelpers from '../../helpers/app.helpers';
 import trace from '../../dev/trace';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
-export const selectFromDate = R.path([dataStoreKeys.DATA, dataStoreKeys.FROM_DATE]);
-export const selectToDate = R.path([dataStoreKeys.DATA, dataStoreKeys.TO_DATE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
 
-const diffInSecs = (from, to) => moment(to).diff(moment(from), 'seconds');
+export const getToDate = createSelector(
+    [selectFormValues],
+    R.prop(dataStoreKeys.TO_DATE)
+);
+
+export const getFromDate = createSelector(
+    [selectFormValues],
+    R.prop(dataStoreKeys.FROM_DATE)
+);
 
 const granularityDivisor = R.divide(R.__, 200);
+const diffInSecs = (from, to) => moment(to).diff(moment(from), 'seconds');
 
 export const calculateGranularity = R.compose(
     Math.round,
@@ -24,7 +31,7 @@ export const calculateGranularity = R.compose(
 
 
 export const getGranularity = createSelector(
-    [selectFromDate, selectToDate],
+    [getFromDate, getToDate],
     calculateGranularity
 );
 
@@ -34,10 +41,9 @@ export const getGranularityFromFormValues = R.converge(
 );
 
 
-
 export const getFormValues = createSelector(
     [selectFormValues],
-    R.converge(R.mergeAll, [R.identity, getMarketApiName, getGranularityFromFormValues])
+    R.converge(R.merge, [R.identity, helpers.asObj('granularity', getGranularityFromFormValues)])
 );
 
 
@@ -110,11 +116,10 @@ export const getLastXPrices = R.curry((x, state) => createSelector(
 const getApiNameFromFormValue = R.path(['api']);
 
 export function getMarketApiName(formValues) {
-    const uiApiName = getApiNameFromFormValue(formValues);
-
-    const api = appHelpers.mapUIApiNameToMarketApiName(uiApiName);
-
-    return Object.assign({}, formValues, { api });
+    return R.compose(
+        appHelpers.mapUIApiNameToMarketApiName,
+        getApiNameFromFormValue
+    )(formValues);
 }
 
 
