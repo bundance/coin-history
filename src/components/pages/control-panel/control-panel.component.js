@@ -111,11 +111,11 @@ class ControlPanel extends React.Component {
                         </Col>
                         <Col md={8}>
                             <Row>
-                                <h2>Data Received (first 10 items)</h2>
+                                <h2>Data Received (latest 10 items)</h2>
                                 <DataTable data={this.props.firstTenHistoricPrices} />
                             </Row>
                             <Row>
-                                <h2>Data Received (last 10 items)</h2>
+                                <h2>Data Received (earliest 10 items)</h2>
                                 <DataTable data={this.props.lastTenHistoricPrices} />
                             </Row>
                         </Col>

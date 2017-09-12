@@ -1,8 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import moment from 'moment';
 import * as dataTypes from '../../constants/action-types/data.types';
 import * as dataActions from './data.actions';
 import { fetchHistoricalPrices } from '../../api/gdax/fetch-historical-prices.api';
-import { getFormValues, getGranularity, getGranularityFromFormValues } from './data.selectors';
+import { getFormValues } from './data.selectors';
 import appHelpers from '../../helpers/app.helpers';
 
 
@@ -13,13 +14,15 @@ export function* watchDownloadData() {
 export function* attemptFetchDataSaga(action) {
     try {
         const formValues = yield select(getFormValues);
-        const granularity = yield call(getGranularityFromFormValues, formValues);
 
         const prices = yield call(
-            fetchHistoricalPrices,
-            appHelpers.mapUIApiNameToMarketApiName(formValues.api),
-            appHelpers.getFormattedCoin(formValues.coin),
-            granularity
+            fetchHistoricalPrices, {
+                api: appHelpers.mapUIApiNameToMarketApiName(formValues.api),
+                coin: appHelpers.getFormattedCoin(formValues.coin),
+                granularity: formValues.granularity,
+                start: moment(formValues.fromDate).toISOString(),
+                end: moment(formValues.toDate).toISOString()
+            }
         );
 
         if(prices && prices.length) {
