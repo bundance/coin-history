@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import ControlPanel from './control-panel.component';
 import { downloadData, fetchData, handleFormChange, setFromDate, setToDate } from '../../../state/data/data.actions';
-import { selectFormValues, getFirstXPrices, getLastXPrices } from '../../../state/data/data.selectors';
+import { getFormValues, getFirstXPrices, getLastXPrices } from '../../../state/data/data.selectors';
 
 const mapStateToProps = (state) => ({
-    formValues: selectFormValues(state),
+    formValues: getFormValues(state),
     firstTenHistoricPrices: getFirstXPrices(10, state),
     lastTenHistoricPrices: getLastXPrices(10, state)
 });

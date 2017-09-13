@@ -260,8 +260,75 @@ describe('data selectors tests', () => {
     });
 
     describe('getDateFromPrice()', () => {
-        it('should get the date from th orice object', () => {
+        it('should get the date from the price object', () => {
             expect(selectors.getDateFromPrice({date: 10})).toEqual(10000);
         });
     });
+
+    describe('calculateGranularity()', () => {
+        it('should return 1 when from and to are 200 seconds apart', () => {
+            const to = moment();
+            const from = moment(to).subtract(200, 'seconds');
+
+            expect(selectors.calculateGranularity(from.valueOf(), to.valueOf())).toEqual(1);
+        });
+
+        it('should return 54 when from and to are 3 hours apart', () => {
+            const to = moment();
+            const from = moment(to).subtract(3, 'hours');
+
+            expect(selectors.calculateGranularity(from.valueOf(), to.valueOf())).toEqual(54);
+        });
+
+        it('should return 432 when from and to are 1 day apart', () => {
+            const to = moment();
+            const from = moment(to).subtract(1, 'days');
+
+            expect(selectors.calculateGranularity(from.valueOf(), to.valueOf())).toEqual(432);
+        });
+    });
+
+    describe('getGranularityFromFormValues()', () => {
+        it('should return 1 when from and to are 200 seconds apart', () => {
+            // ARRANGE
+            const to = moment();
+            const from = moment(to).subtract(200, 'seconds');
+
+            const formValues = {
+                [dataStoreKeys.FROM_DATE]: from.valueOf(),
+                [dataStoreKeys.TO_DATE]: to.valueOf()
+            };
+
+            // ASSERT
+            expect(selectors.getGranularityFromFormValues(formValues)).toEqual(1);
+        });
+
+        it('should return 54 when from and to are 3 hours apart', () => {
+            // ARRANGE
+            const to = moment();
+            const from = moment(to).subtract(3, 'hours');
+
+            const formValues = {
+                [dataStoreKeys.FROM_DATE]: from.valueOf(),
+                [dataStoreKeys.TO_DATE]: to.valueOf()
+            };
+
+            // ASSERT
+            expect(selectors.getGranularityFromFormValues(formValues)).toEqual(54);
+        });
+
+        it('should return 432 when from and to are 1 day apart', () => {
+            // ARRANGE
+            const to = moment();
+            const from = moment(to).subtract(1, 'days');
+
+            const formValues = {
+                [dataStoreKeys.FROM_DATE]: from.valueOf(),
+                [dataStoreKeys.TO_DATE]: to.valueOf()
+            };
+
+            // ASSERT
+            expect(selectors.getGranularityFromFormValues(formValues)).toEqual(432);
+        });
+    })
 });

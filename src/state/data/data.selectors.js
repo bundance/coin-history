@@ -4,17 +4,47 @@ import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
 import Papa from 'papaparse';
 import moment from 'moment';
 import helpers from '../../utils/helpers';
-
+import appHelpers from '../../helpers/app.helpers';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
-export const selectFromDate = R.path([dataStoreKeys.DATA, dataStoreKeys.FROM_DATE]);
-export const selectToDate = R.path([dataStoreKeys.DATA, dataStoreKeys.TO_DATE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
+
+export const getToDate = createSelector(
+    [selectFormValues],
+    R.prop(dataStoreKeys.TO_DATE)
+);
+
+export const getFromDate = createSelector(
+    [selectFormValues],
+    R.prop(dataStoreKeys.FROM_DATE)
+);
+
+const granularityDivisor = R.divide(R.__, 200);
+const diffInSecs = (from, to) => moment(to).diff(moment(from), 'seconds');
+
+export const calculateGranularity = R.compose(
+    Math.round,
+    granularityDivisor,
+    diffInSecs
+);
+
+
+export const getGranularity = createSelector(
+    [getFromDate, getToDate],
+    calculateGranularity
+);
+
+
+export const getGranularityFromFormValues = R.converge(
+    calculateGranularity, [R.path([dataStoreKeys.FROM_DATE]), R.path([dataStoreKeys.TO_DATE])]
+);
+
 
 export const getFormValues = createSelector(
     [selectFormValues],
-    mapUIApiNameToMarketApiName
+    R.converge(R.merge, [R.identity, helpers.asObj('granularity', getGranularityFromFormValues)])
 );
+
 
 /**
  * getHistoricPricesSample object - pass in the state object, and it returns an
@@ -56,6 +86,7 @@ const getReadableDateTime = dt => ({
     readableDate: moment(dt).format('DD-MMM-YY'),
     readableTime: moment(dt).format('h:mm:ss a')
 });
+
 export const getDateFromPrice = R.converge(R.multiply(1000), [R.path(['date'])]);
 const getReadableDateTimeFromPrice = R.compose(getReadableDateTime, getDateFromPrice);
 
@@ -84,12 +115,11 @@ export const getLastXPrices = R.curry((x, state) => createSelector(
 ////// HELPERS //////
 const getApiNameFromFormValue = R.path(['api']);
 
-function mapUIApiNameToMarketApiName(formValues) {
-    let api = getApiNameFromFormValue(formValues);
-
-    api = api === 'CoinBase' ? 'gdax' : 'quandl';
-
-    return Object.assign({}, formValues, { api });
+export function getMarketApiName(formValues) {
+    return R.compose(
+        appHelpers.mapUIApiNameToMarketApiName,
+        getApiNameFromFormValue
+    )(formValues);
 }
 
 
