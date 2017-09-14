@@ -6,6 +6,7 @@ import moment from 'moment';
 import helpers from '../../utils/helpers';
 import appHelpers from '../../helpers/app.helpers';
 
+
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
 
@@ -18,6 +19,12 @@ export const getFromDate = createSelector(
     [selectFormValues],
     R.prop(dataStoreKeys.FROM_DATE)
 );
+
+export const getDateFormat = createSelector(
+    [selectFormValues],
+    R.prop(dataStoreKeys.DATE_FORMAT)
+);
+
 
 const granularityDivisor = R.divide(R.__, 200);
 const diffInSecs = (from, to) => moment(to).diff(moment(from), 'seconds');
@@ -42,7 +49,9 @@ export const getGranularityFromFormValues = R.converge(
 
 export const getFormValues = createSelector(
     [selectFormValues],
-    R.converge(R.merge, [R.identity, helpers.asObj('granularity', getGranularityFromFormValues)])
+    R.converge(R.merge, [
+        R.identity,
+        helpers.asObj('granularity', getGranularityFromFormValues)])
 );
 
 
@@ -75,28 +84,39 @@ export const getFormValues = createSelector(
 export const getHistoricPricesSample = createSelector(
     [selectHistoricPricesSample],
     R.compose(
-        R.map(R.zipObj(['date', 'open', 'close', 'high', 'low', 'volume'])),
-        R.path(['data']),
+        R.map(R.zipObj([dataStoreKeys.TIMESTAMP, dataStoreKeys.OPEN, dataStoreKeys.CLOSE,
+            dataStoreKeys.HIGH, dataStoreKeys.LOW, dataStoreKeys.VOLUME])),
+        R.path([dataStoreKeys.DATA]),
         R.partialRight(Papa.parse, [{ dynamicTyping: true }])
     )
 );
 
 
-const getReadableDateTime = dt => ({
-    readableDate: moment(dt).format('DD-MMM-YY'),
-    readableTime: moment(dt).format('h:mm:ss a')
+const getFormattedDateTime = R.curry((dateFormat, timeFormat, dt) => ({
+    date: moment(dt).format(dateFormat),
+    time: moment(dt).format(timeFormat)
+}));
+
+export const getDateFromPrice = R.converge(R.multiply(1000), [R.path([dataStoreKeys.TIMESTAMP])]);
+
+const getFormattedDateTimeFromPrice = R.curry((dateFormat, timeFormat) =>
+    R.compose(getFormattedDateTime(dateFormat, timeFormat), getDateFromPrice)
+);
+
+export const getFormattedHistoricPrices = R.curry((dateFormat, timeFormat) => {
+    return R.reduce(
+        helpers.useWithFlipped(
+            R.append, [R.converge(
+                R.merge, [R.identity, getFormattedDateTimeFromPrice(dateFormat, timeFormat)]
+            ), R.identity]
+        ),
+        [])
 });
 
-export const getDateFromPrice = R.converge(R.multiply(1000), [R.path(['date'])]);
-const getReadableDateTimeFromPrice = R.compose(getReadableDateTime, getDateFromPrice);
 
 export const getReadableHistoricPrices = createSelector(
     [getHistoricPricesSample],
-    R.reduce(
-        helpers.useWithFlipped(
-            R.append, [R.converge(R.merge, [R.identity, getReadableDateTimeFromPrice]), R.identity]
-        ),
-    [])
+    getFormattedHistoricPrices('DD-MMM-YY', 'h:mm:ss a')
 );
 
 
