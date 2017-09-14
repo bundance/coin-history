@@ -102,8 +102,8 @@ class ControlPanel extends React.Component {
                                             onChange={this.handleFormChange}
                                             value={formValues.dateFormat}
                                         >
-                                            <option value="ddmmyy">dd-mm-yy</option>
-                                            <option value="mmddyy">mm-dd-yy</option>
+                                            <option value="DD-MM-YY">DD-MM-YY</option>
+                                            <option value="MM-DD-YY">MM-DD-YY</option>
                                             <option value="custom">Custom Format</option>
                                         </FormControl>
                                     </FormGroup>

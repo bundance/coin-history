@@ -5,7 +5,8 @@ export default {
     [dataStoreKeys.FORM_VALUES]: {
         api: 'CoinBase',
         coin: 'Bitcoin',
-        dateFormat: 'ddmmyy',
+        dateFormat: 'DD-MM-YY',
+        timeFormat: 'h:mm:ss a',
         fromDate: moment().startOf('day').toISOString(),
         toDate: moment().endOf('day').toISOString()
     },

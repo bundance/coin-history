@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 import moment from 'moment';
 import helpers from '../../utils/helpers';
 import appHelpers from '../../helpers/app.helpers';
-
+import trace from '../../dev/trace';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
@@ -25,6 +25,10 @@ export const getDateFormat = createSelector(
     R.prop(dataStoreKeys.DATE_FORMAT)
 );
 
+export const getTimeFormat = createSelector(
+    [selectFormValues],
+    R.prop(dataStoreKeys.TIME_FORMAT)
+);
 
 const granularityDivisor = R.divide(R.__, 200);
 const diffInSecs = (from, to) => moment(to).diff(moment(from), 'seconds');
@@ -103,20 +107,20 @@ const getFormattedDateTimeFromPrice = R.curry((dateFormat, timeFormat) =>
     R.compose(getFormattedDateTime(dateFormat, timeFormat), getDateFromPrice)
 );
 
-export const getFormattedHistoricPrices = R.curry((dateFormat, timeFormat) => {
-    return R.reduce(
+export const getFormattedHistoricPrices = R.curry((dateFormat, timeFormat, prices) =>
+    R.reduce(
         helpers.useWithFlipped(
             R.append, [R.converge(
                 R.merge, [R.identity, getFormattedDateTimeFromPrice(dateFormat, timeFormat)]
             ), R.identity]
         ),
-        [])
-});
+        [])(prices)
+);
 
 
 export const getReadableHistoricPrices = createSelector(
-    [getHistoricPricesSample],
-    getFormattedHistoricPrices('DD-MMM-YY', 'h:mm:ss a')
+    [getDateFormat, getTimeFormat, getHistoricPricesSample],
+    getFormattedHistoricPrices
 );
 
 
