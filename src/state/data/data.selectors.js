@@ -5,7 +5,6 @@ import Papa from 'papaparse';
 import moment from 'moment';
 import helpers from '../../utils/helpers';
 import appHelpers from '../../helpers/app.helpers';
-import trace from '../../dev/trace';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
