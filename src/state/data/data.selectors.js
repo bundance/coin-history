@@ -123,16 +123,16 @@ export const getReadableHistoricPrices = createSelector(
 );
 
 
-export const getFirstXPrices = R.curry((x, state) => createSelector(
+export const getFirstXPrices = x => createSelector(
     [getReadableHistoricPrices],
     R.take(x)
-)(state));
+);
 
 
-export const getLastXPrices = R.curry((x, state) => createSelector(
+export const getLastXPrices = x => createSelector(
     [getReadableHistoricPrices],
     R.takeLast(x)
-)(state));
+);
 
 
 ////// HELPERS //////

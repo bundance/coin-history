@@ -5,8 +5,8 @@ import { getFormValues, getFirstXPrices, getLastXPrices } from '../../../state/d
 
 const mapStateToProps = (state) => ({
     formValues: getFormValues(state),
-    firstTenHistoricPrices: getFirstXPrices(10, state),
-    lastTenHistoricPrices: getLastXPrices(10, state)
+    firstTenHistoricPrices: getFirstXPrices(10)(state),
+    lastTenHistoricPrices: getLastXPrices(10)(state)
 });
 
 const mapDispatchToProps = ({
