@@ -21,20 +21,20 @@ export default class extends React.Component {
                 >
                     <TableHeaderColumn
                         dataSort={true}
-                        dataField="readableDate"
+                        dataField="date"
                         isKey={true}
                     >
                         Date
                     </TableHeaderColumn>
                     <TableHeaderColumn
                         dataSort={true}
-                        dataField="readableTime"
+                        dataField="time"
                     >
                         Time
                     </TableHeaderColumn>
                     <TableHeaderColumn
                         dataSort={true}
-                        dataField="date"
+                        dataField="timestamp"
                     >
                         Timestamp
                     </TableHeaderColumn>

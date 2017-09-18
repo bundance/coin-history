@@ -16,31 +16,36 @@ describe('data selectors tests', () => {
 
             mockState = {
                 [dataStoreKeys.DATA]: {
-                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV
+                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
+                    [dataStoreKeys.FORM_VALUES]: {
+                        [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
+                        [dataStoreKeys.GRANULARITY]: 200
+                    }
                 }
             };
         });
 
         it('should return the first 2 prices', () => {
-            const actual = selectors.getFirstXPrices(2, mockState);
+            const actual = selectors.getFirstXPrices(2)(mockState);
 
             const expected = [{
-                date: 1503920460,
-                readableDate: "28-Aug-17",
-                readableTime: "12:41:00 pm",
-                open: 1,
                 close: 2,
+                date: "28-08-17",
                 high: 3,
                 low: 4,
+                open: 1,
+                time: "12:41:00 pm",
+                timestamp: 1503920460,
                 volume: 5
             }, {
-                date: 1503920401,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:01 pm",
-                open: 11,
                 close: 12,
+                date: "28-08-17",
                 high: 13,
                 low: 14,
+                open: 11,
+                time: "12:40:01 pm",
+                timestamp: 1503920401,
                 volume: 15
             }];
 
@@ -48,34 +53,34 @@ describe('data selectors tests', () => {
         });
 
         it('should return the first 3 prices', () => {
-            const actual = selectors.getFirstXPrices(3, mockState);
+            const actual = selectors.getFirstXPrices(3)(mockState);
 
             const expected = [{
-                date: 1503920460,
-                readableDate: "28-Aug-17",
-                readableTime: "12:41:00 pm",
-                open: 1,
                 close: 2,
+                date: '28-08-17',
                 high: 3,
                 low: 4,
+                open: 1,
+                time: '12:41:00 pm',
+                timestamp: 1503920460,
                 volume: 5
             }, {
-                date: 1503920401,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:01 pm",
-                open: 11,
                 close: 12,
+                date: '28-08-17',
                 high: 13,
                 low: 14,
+                open: 11,
+                time: '12:40:01 pm',
+                timestamp: 1503920401,
                 volume: 15
             }, {
-                date: 1503920402,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:02 pm",
-                open: 21,
                 close: 22,
+                date: '28-08-17',
                 high: 23,
                 low: 24,
+                open: 21,
+                time: '12:40:02 pm',
+                timestamp: 1503920402,
                 volume: 25
             }];
 
@@ -96,31 +101,36 @@ describe('data selectors tests', () => {
 
             mockState = {
                 [dataStoreKeys.DATA]: {
-                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV
+                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
+                    [dataStoreKeys.FORM_VALUES]: {
+                        [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
+                        [dataStoreKeys.GRANULARITY]: 200
+                    }
                 }
             };
         });
 
         it('should return the last 2 prices', () => {
-            const actual = selectors.getLastXPrices(2, mockState);
+            const actual = selectors.getLastXPrices(2)(mockState);
 
             const expected = [{
-                date: 1503920403,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:03 pm",
-                open: 31,
                 close: 32,
+                date: '28-08-17',
                 high: 33,
                 low: 34,
+                open: 31,
+                time: '12:40:03 pm',
+                timestamp: 1503920403,
                 volume: 35
             }, {
-                date: 1503920404,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:04 pm",
-                open: 41,
                 close: 42,
+                date: '28-08-17',
                 high: 43,
                 low: 44,
+                open: 41,
+                time: '12:40:04 pm',
+                timestamp: 1503920404,
                 volume: 45
             }];
 
@@ -128,34 +138,34 @@ describe('data selectors tests', () => {
         });
 
         it('should return the last 3 prices', () => {
-            const actual = selectors.getLastXPrices(3, mockState);
+            const actual = selectors.getLastXPrices(3)(mockState);
 
             const expected = [{
-                date: 1503920402,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:02 pm",
-                open: 21,
                 close: 22,
+                date: '28-08-17',
                 high: 23,
                 low: 24,
+                open: 21,
+                time: '12:40:02 pm',
+                timestamp: 1503920402,
                 volume: 25
             }, {
-                date: 1503920403,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:03 pm",
-                open: 31,
                 close: 32,
+                date: '28-08-17',
                 high: 33,
                 low: 34,
+                open: 31,
+                time: '12:40:03 pm',
+                timestamp: 1503920403,
                 volume: 35
             }, {
-                date: 1503920404,
-                readableDate: "28-Aug-17",
-                readableTime: "12:40:04 pm",
-                open: 41,
                 close: 42,
+                date: '28-08-17',
                 high: 43,
                 low: 44,
+                open: 41,
+                time: '12:40:04 pm',
+                timestamp: 1503920404,
                 volume: 45
             }];
 
@@ -173,7 +183,12 @@ describe('data selectors tests', () => {
 
             mockState = {
                 [dataStoreKeys.DATA]: {
-                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV
+                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
+                    [dataStoreKeys.FORM_VALUES]: {
+                        [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
+                        [dataStoreKeys.GRANULARITY]: 200
+                    }
                 }
             };
         });
@@ -190,18 +205,18 @@ describe('data selectors tests', () => {
             const actual = selectors.getHistoricPricesSample(mockState);
 
             const expected = [{
-                date: 1503920460,
-                open: 1,
                 close: 2,
                 high: 3,
                 low: 4,
+                open: 1,
+                timestamp: 1503920460,
                 volume: 5
             }, {
-                date: 1503920400,
-                open: 11,
                 close: 12,
                 high: 13,
                 low: 14,
+                open: 11,
+                timestamp: 1503920400,
                 volume: 15
             }];
 
@@ -219,7 +234,12 @@ describe('data selectors tests', () => {
 
             mockState = {
                 [dataStoreKeys.DATA]: {
-                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV
+                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
+                    [dataStoreKeys.FORM_VALUES]: {
+                        [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
+                        [dataStoreKeys.GRANULARITY]: 200
+                    }
                 }
             };
         });
@@ -236,22 +256,22 @@ describe('data selectors tests', () => {
             const actual = selectors.getReadableHistoricPrices(mockState);
 
             const expected = [{
-                readableDate: readableDate1,
-                readableTime: readableTime1,
-                date: 1503920460,
-                open: 1,
                 close: 2,
+                date: '28-08-17',
                 high: 3,
                 low: 4,
+                open: 1,
+                time: '12:41:00 pm',
+                timestamp: 1503920460,
                 volume: 5
             }, {
-                readableDate: readableDate2,
-                readableTime: readableTime2,
-                date: 1503920400,
-                open: 11,
                 close: 12,
+                date: '28-08-17',
                 high: 13,
                 low: 14,
+                open: 11,
+                time: '12:40:00 pm',
+                timestamp: 1503920400,
                 volume: 15
             }];
 
@@ -261,7 +281,7 @@ describe('data selectors tests', () => {
 
     describe('getDateFromPrice()', () => {
         it('should get the date from the price object', () => {
-            expect(selectors.getDateFromPrice({date: 10})).toEqual(10000);
+            expect(selectors.getDateFromPrice({[dataStoreKeys.TIMESTAMP]: 10})).toEqual(10000);
         });
     });
 

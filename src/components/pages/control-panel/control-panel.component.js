@@ -37,7 +37,7 @@ class ControlPanel extends React.Component {
     };
 
     render() {
-        const formValues = this.props.formValues;
+        const { formValues } = this.props;
 
         return (
             <Form>
@@ -95,13 +95,14 @@ class ControlPanel extends React.Component {
                                 </Row>
                                 <Row>
                                     <FormGroup controlId="dateFormat">
-                                        <ControlLabel>Format Date and Time as: </ControlLabel>
-                                        <FormControl componentClass="select" placeholder="select" onChange={this.handleFormChange}>
-                                            <option value="ddmmyy">dd-mm-yy</option>
-                                            <option value="mmddyy">mm-dd-yy</option>
-                                            <option value="custom">Custom Format</option>
-                                        </FormControl>
+                                        <ControlLabel>Date Format: </ControlLabel>
+                                        <FormControl
+                                            type="text"
+                                            onChange={this.handleFormChange}
+                                            value={formValues.dateFormat}
+                                        />
                                     </FormGroup>
+
                                 </Row>
                                 <Row>
                                     <Button onClick={this.fetchData}>Fetch Data Sample</Button>
