@@ -1,0 +1,48 @@
+.waiting-spinner__small {
+    padding: 0;
+}
+
+.spinner--container {
+    height: 40px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.spinner {
+    vertical-align: middle;
+}
+
+.spinner--container .loading-text {
+    color: #ec6e05;
+    font-size: 18pt;
+    line-height: 1.5;
+    margin: 0 0 0 15px;
+    vertical-align: middle;
+}
+
+.spinner--container__small {
+    height: 30px;
+    margin: 10px 30px 10px 10px;
+    width: 100%;
+    padding: 0;
+}
+
+.spinner--container__small .loading-text {
+    font-size: 14pt;
+    color: #ec6e05;
+    line-height: 1.5;
+    margin: 0 0 0 10px;
+    vertical-align: middle;
+}
+
+.modal-fade-transition__exiting {
+    border: 10px solid red;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    transition: opacity 5s linear !important;
+}
+
+.modal-dialog {
+    top: 100px;
+}
