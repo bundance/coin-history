@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 import Spinner from "react-md-spinner";
 import MediaQuery from 'react-responsive';
 import { Modal } from 'react-bootstrap';
