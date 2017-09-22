@@ -1,6 +1,9 @@
 export const DATA_HANDLE_FORM_CHANGE = 'DATA_HANDLE_FORM_CHANGE';
 export const DOWNLOAD_DATA = 'DOWNLOAD_DATA';
-export const FETCH_DATA = 'FETCH_DATA ';
+export const FETCH_DATA = 'FETCH_DATA';
+export const FETCH_COINS = 'FETCH_COINS';
+export const GET_COINS = 'GET_COINS';
+export const SET_COINS = 'SET_COINS';
 export const SET_HISTORIC_PRICES_SAMPLE = 'SET_HISTORIC_PRICES_SAMPLE';
 export const SET_FROM_DATE = 'SET_FROM_DATE';
 export const SET_TO_DATE = 'SET_TO_DATE';

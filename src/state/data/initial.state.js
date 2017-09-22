@@ -10,5 +10,6 @@ export default {
         fromDate: moment().startOf('day').toISOString(),
         toDate: moment().endOf('day').toISOString()
     },
-    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: ''
+    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: '',
+    [dataStoreKeys.COINS]: [],
 }

@@ -6,6 +6,7 @@ import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
 export default handleActions({
     [dataTypes.DATA_HANDLE_FORM_CHANGE]: handleFormChange,
     [dataTypes.SET_HISTORIC_PRICES_SAMPLE]: setHistoricPricesSample,
+    [dataTypes.SET_COINS]: setCoins,
     [dataTypes.SET_FROM_DATE]: setFromDate,
     [dataTypes.SET_TO_DATE]: setToDate
 }, initialState);
@@ -39,5 +40,12 @@ function setToDate(state, action) {
         [dataStoreKeys.FORM_VALUES]: Object.assign(
             {}, state[dataStoreKeys.FORM_VALUES], { [dataStoreKeys.TO_DATE]: action.payload }
         )
+    }
+}
+
+function setCoins(state, action) {
+    return {
+        ...state,
+        [dataStoreKeys.COINS]: action.payload
     }
 }

@@ -1,4 +1,5 @@
 export const HISTORIC_PRICES_SAMPLE = 'historicPricesSample';
+export const COINS = 'coins';
 export const DATA = 'data';
 export const DATE_FORMAT = 'dateFormat';
 export const FROM_DATE = 'fromDate';

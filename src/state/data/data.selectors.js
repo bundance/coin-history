@@ -8,6 +8,12 @@ import appHelpers from '../../helpers/app.helpers';
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
+export const selectCoins = R.path([dataStoreKeys.DATA, dataStoreKeys.COINS]);
+
+export const getCoins = createSelector(
+    [selectCoins],
+    R.map(coin => coin.id)
+);
 
 export const getToDate = createSelector(
     [selectFormValues],

@@ -10,11 +10,16 @@ class ControlPanel extends React.Component {
         formValues: PropTypes.object,
         downloadData: PropTypes.func.isRequired,
         fetchData: PropTypes.func.isRequired,
+        fetchCoins: PropTypes.func.isRequired,
         firstTenHistoricPrices: PropTypes.array,
         lastTenHistoricPrices: PropTypes.array,
         setFromDate: PropTypes.func.isRequired,
         setToDate: PropTypes.func.isRequired
     };
+
+    componentWillMount() {
+        this.props.fetchCoins();
+    }
 
     fetchData = () => {
         this.props.fetchData(this.props.formValues);
@@ -24,11 +29,11 @@ class ControlPanel extends React.Component {
         this.props.downloadData();
     };
 
-    handleFromChange = (value) => {
+    handleFromDateChange = (value) => {
         this.props.setFromDate(value);
     };
 
-    handleToChange = (value) => {
+    handleToDateChange = (value) => {
         this.props.setToDate(value);
     };
 
@@ -76,11 +81,11 @@ class ControlPanel extends React.Component {
                                 </Row>
                                 <Row className="row__padding--bottom">
                                     <ControlLabel>From: </ControlLabel>
-                                    <DatePicker id="from" onChange={this.handleFromChange} value={formValues.fromDate} />
+                                    <DatePicker id="from" onChange={this.handleFromDateChange} value={formValues.fromDate} />
                                 </Row>
                                 <Row className="row__padding--bottom">
                                     <ControlLabel>To: </ControlLabel>
-                                    <DatePicker id="to" onChange={this.handleToChange} value={formValues.toDate} />
+                                    <DatePicker id="to" onChange={this.handleToDateChange} value={formValues.toDate} />
                                 </Row>
                                 <Row>
                                     <FormGroup controlId="granularity">
