@@ -56,26 +56,20 @@ export const getGranularityFromFormValues = R.converge(
 );
 
 
-// export const getFormValues = createSelector(
-//     [selectFormValues],
-//     R.converge(R.merge, [
-//         R.identity,
-//         helpers.asObj('granularity', getGranularityFromFormValues)])
-// );
+const appendGranularityToFormValues = R.converge(R.merge, [
+    R.identity,
+    helpers.asObj('granularity', getGranularityFromFormValues)
+]);
 
 export const getFormValues = createSelector(
     [selectFormValues, getCoinIds],
     R.useWith(
         R.merge, [
-            R.converge(R.merge, [
-                R.identity,
-                helpers.asObj('granularity', getGranularityFromFormValues)
-            ]),
+            appendGranularityToFormValues,
             helpers.asObj('coins', R.identity)
         ]
     )
 );
-
 
 
 /**
