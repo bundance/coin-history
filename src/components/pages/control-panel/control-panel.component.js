@@ -70,12 +70,17 @@ class ControlPanel extends React.Component {
                                     </FormGroup>
                                 </Row>
                                 <Row>
-                                    <FormGroup controlId="coin">
+                                    <FormGroup controlId="selectedCoin">
                                         <ControlLabel>Coin: </ControlLabel>
-                                        <FormControl componentClass="select" placeholder="select" onChange={this.handleFormChange} >
-                                            <option value="Bitcoin">Bitcoin</option>
-                                            <option value="Ethereum">Ethereum</option>
-                                            <option value="LiteCoin">LiteCoin</option>
+                                        <FormControl
+                                            value={formValues.selectedCoin}
+                                            componentClass="select"
+                                            placeholder="select"
+                                            onChange={this.handleFormChange}
+                                        >
+                                            {formValues.coins.map(coin =>
+                                                <option key={coin} value={coin}>{coin}</option>
+                                            )}
                                         </FormControl>
                                     </FormGroup>
                                 </Row>

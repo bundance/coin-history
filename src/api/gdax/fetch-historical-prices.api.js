@@ -26,7 +26,7 @@ export const fetchHistoricalPrices = (opts) => {
 
 export const fetchCoins = (opts) => {
     const endpoint = getEndpoint(endpointNames.COINS, opts.api)();
-console.log({ endpoint});
+
     return fetch(endpoint)
         .then(response => response.json());
-}
+};

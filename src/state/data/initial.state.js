@@ -4,7 +4,8 @@ import moment from 'moment';
 export default {
     [dataStoreKeys.FORM_VALUES]: {
         api: 'CoinBase',
-        coin: 'Bitcoin',
+        selectedCoin: 'BTC-USD',
+        coins: [],
         dateFormat: 'DD-MM-YY',
         timeFormat: 'h:mm:ss a',
         fromDate: moment().startOf('day').toISOString(),

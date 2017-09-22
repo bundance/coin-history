@@ -4,7 +4,7 @@ import * as dataTypes from '../../constants/action-types/data.types';
 import * as dataActions from './data.actions';
 import * as appActions from '../app/app.actions';
 import { fetchCoins, fetchHistoricalPrices } from '../../api/gdax/fetch-historical-prices.api';
-import { getCoins, getFormValues } from './data.selectors';
+import { getFormValues } from './data.selectors';
 import appHelpers from '../../helpers/app.helpers';
 
 
@@ -21,7 +21,7 @@ export function* attemptFetchDataSaga() {
         const prices = yield call(
             fetchHistoricalPrices, {
                 api: appHelpers.mapUIApiNameToMarketApiName(formValues.api),
-                coin: appHelpers.getFormattedCoin(formValues.coin),
+                coin: formValues.selectedCoin,
                 granularity: formValues.granularity,
                 start: moment(formValues.fromDate).toISOString(),
                 end: moment(formValues.toDate).toISOString()
@@ -59,9 +59,6 @@ export function* attemptFetchCoinsSaga() {
         const coins = yield call(fetchCoins, { api: appHelpers.mapUIApiNameToMarketApiName(formValues.api) });
 
         yield put(dataActions.setCoins(coins));
-
-        const selectedCoins = yield select(getCoins);
-        console.log({ selectedCoins });
     } catch(err) {
         console.log('*** bum, an error happened', { err });
     } finally {

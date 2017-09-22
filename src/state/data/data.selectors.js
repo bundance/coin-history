@@ -10,7 +10,7 @@ export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreK
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
 export const selectCoins = R.path([dataStoreKeys.DATA, dataStoreKeys.COINS]);
 
-export const getCoins = createSelector(
+export const getCoinIds = createSelector(
     [selectCoins],
     R.map(coin => coin.id)
 );
@@ -56,12 +56,26 @@ export const getGranularityFromFormValues = R.converge(
 );
 
 
+// export const getFormValues = createSelector(
+//     [selectFormValues],
+//     R.converge(R.merge, [
+//         R.identity,
+//         helpers.asObj('granularity', getGranularityFromFormValues)])
+// );
+
 export const getFormValues = createSelector(
-    [selectFormValues],
-    R.converge(R.merge, [
-        R.identity,
-        helpers.asObj('granularity', getGranularityFromFormValues)])
+    [selectFormValues, getCoinIds],
+    R.useWith(
+        R.merge, [
+            R.converge(R.merge, [
+                R.identity,
+                helpers.asObj('granularity', getGranularityFromFormValues)
+            ]),
+            helpers.asObj('coins', R.identity)
+        ]
+    )
 );
+
 
 
 /**
