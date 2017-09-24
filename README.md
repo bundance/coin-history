@@ -4,10 +4,10 @@ and [getProducts](https://docs.gdax.com/#get-products) endpoints.
 With it, you can fetch the coin history for Bitcoin, Litecoin or Ethereum for any start and end date you wish. The app 
 will then show the first and last ten entries returned from the GDAX API.
 
-#Installing the app
+# Installing the app
 Clone this repo into a folder on your machine
 
-#Running the app
+#R unning the app
 Run the app using
 
 `npm run start`
@@ -19,8 +19,8 @@ To run the unit tests, enter:
 
 `npm run test`
 
-#FAQ
-##Why has this app been written?
+#F AQ
+## Why has this app been written?
 The GDAX `getHistoricRates()` endpoint can be a bit confusing, as it will only return a maximum of 200 candles for any 
 one request. If there are more than 200 candles between your start and end times, the request will be rejected.
   
@@ -31,7 +31,7 @@ data corresponding to 1 candle per second between your start and end times.
 If, however, your start and end times are more than 200 seconds apart, you must change the granularity parameter. This,
 however, is where things get a bit tricky.
 
-On the []GDAX API page](https://docs.gdax.com/#get-historic-rates), there are no example requests showing you what value 
+On the [GDAX API page](https://docs.gdax.com/#get-historic-rates), there are no example requests showing you what value 
 your `granularity` should be be between two points. Without this, it is hard to tell when you receive an error whether 
 you've entered an incorrectly-formatted start time, end time, or granularity value, as you get the same response in each
  case: a simple error.
