@@ -96,8 +96,8 @@ const getFormattedDateTimeFromPrice = R.curry((dateFormat, timeFormat) =>
 ////// HISTORIC PRICES //////
 
 const addHeadersToData = R.map(R.zipObj([
-    dataStoreKeys.TIMESTAMP, dataStoreKeys.OPEN, dataStoreKeys.CLOSE,
-    dataStoreKeys.HIGH, dataStoreKeys.LOW, dataStoreKeys.VOLUME]
+    dataStoreKeys.TIMESTAMP, dataStoreKeys.LOW, dataStoreKeys.HIGH,
+    dataStoreKeys.OPEN, dataStoreKeys.CLOSE, dataStoreKeys.VOLUME]
 ));
 
 /**
