@@ -6,20 +6,19 @@ import './nav-header.css';
 const NavHeader = () => (
     <Navbar inverse collapseOnSelect>
         <Navbar.Header>
-            <Navbar.Brand>
-                Coin History
-            </Navbar.Brand>
+            <LinkContainer exact to="/">
+                <NavItem eventKey={1}>
+                    <Navbar.Brand>
+                        Coin History
+                    </Navbar.Brand>
+                </NavItem>
+            </LinkContainer>
             <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
             <Nav pullRight>
-                <LinkContainer exact to="/">
-                    <NavItem eventKey={1}>
-                        Home
-                    </NavItem>
-                </LinkContainer>
                 <LinkContainer to="/about">
-                    <NavItem eventKey={3}>
+                    <NavItem eventKey={2}>
                         About
                     </NavItem>
                 </LinkContainer>
