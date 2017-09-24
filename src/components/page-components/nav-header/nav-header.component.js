@@ -18,11 +18,6 @@ const NavHeader = () => (
                         Home
                     </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/settings">
-                    <NavItem eventKey={2}>
-                        Settings
-                    </NavItem>
-                </LinkContainer>
                 <LinkContainer to="/about">
                     <NavItem eventKey={3}>
                         About
