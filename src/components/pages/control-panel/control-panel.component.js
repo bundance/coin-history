@@ -54,22 +54,6 @@ class ControlPanel extends React.Component {
                                     <h2>Options</h2>
                                 </Row>
                                 <Row>
-                                    <FormGroup controlId="api">
-                                        <ControlLabel>Market: </ControlLabel>
-                                        <FormControl
-                                            componentClass="select"
-                                            placeholder="select"
-                                            onChange={this.handleFormChange}
-                                            value={formValues.api}
-                                        >
-                                            <option value="CoinBase">CoinBase</option>
-                                            <option value="Poloniex">Poloniex</option>
-                                            <option value="Genesis">Genesis</option>
-                                            <option value="Average">Average</option>
-                                        </FormControl>
-                                    </FormGroup>
-                                </Row>
-                                <Row>
                                     <FormGroup controlId="selectedCoin">
                                         <ControlLabel>Coin: </ControlLabel>
                                         <FormControl
