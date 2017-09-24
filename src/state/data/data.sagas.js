@@ -3,7 +3,7 @@ import moment from 'moment';
 import * as dataTypes from '../../constants/action-types/data.types';
 import * as dataActions from './data.actions';
 import * as appActions from '../app/app.actions';
-import { fetchCoins, fetchHistoricalPrices } from '../../api/gdax/fetch-historical-prices.api';
+import { fetchCoins, fetchHistoricalPrices } from '../../api/gdax/gdax.api';
 import { getApiOptions } from './data.selectors';
 import appHelpers from '../../helpers/app.helpers';
 
