@@ -8,7 +8,6 @@ const actions = createActions(
         [dataTypes.SET_TO_DATE]: _setToDate
     },
     dataTypes.DATA_HANDLE_FORM_CHANGE,
-    dataTypes.DOWNLOAD_DATA,
     dataTypes.FETCH_DATA,
     dataTypes.FETCH_COINS,
     dataTypes.GET_COINS,
@@ -18,7 +17,6 @@ const actions = createActions(
 
 const {
     dataHandleFormChange,
-    downloadData,
     fetchData,
     fetchCoins,
     getCoins,
@@ -30,7 +28,6 @@ const {
 
 export {
     dataHandleFormChange as handleFormChange,
-    downloadData,
     fetchData,
     fetchCoins,
     getCoins,

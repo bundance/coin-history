@@ -18,7 +18,7 @@ describe('data selectors tests', () => {
             mockState = {
                 [dataStoreKeys.DATA]: {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
-                    [dataStoreKeys.FORM_VALUES]: {
+                    [dataStoreKeys.API_OPTIONS]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
                         [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
@@ -99,7 +99,7 @@ describe('data selectors tests', () => {
             mockState = {
                 [dataStoreKeys.DATA]: {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
-                    [dataStoreKeys.FORM_VALUES]: {
+                    [dataStoreKeys.API_OPTIONS]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
                         [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
@@ -177,7 +177,7 @@ describe('data selectors tests', () => {
             mockState = {
                 [dataStoreKeys.DATA]: {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
-                    [dataStoreKeys.FORM_VALUES]: {
+                    [dataStoreKeys.API_OPTIONS]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
                         [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
@@ -224,7 +224,7 @@ describe('data selectors tests', () => {
             mockState = {
                 [dataStoreKeys.DATA]: {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
-                    [dataStoreKeys.FORM_VALUES]: {
+                    [dataStoreKeys.API_OPTIONS]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
                         [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
@@ -296,19 +296,19 @@ describe('data selectors tests', () => {
         });
     });
 
-    describe('getGranularityFromFormValues()', () => {
+    describe('getGranularityFromApiOptions()', () => {
         it('should return 1 when from and to are 200 seconds apart', () => {
             // ARRANGE
             const to = moment();
             const from = moment(to).subtract(200, 'seconds');
 
-            const formValues = {
+            const apiOptions = {
                 [dataStoreKeys.FROM_DATE]: from.valueOf(),
                 [dataStoreKeys.TO_DATE]: to.valueOf()
             };
 
             // ASSERT
-            expect(selectors.getGranularityFromFormValues(formValues)).toEqual(1);
+            expect(selectors.getGranularityFromApiOptions(apiOptions)).toEqual(1);
         });
 
         it('should return 54 when from and to are 3 hours apart', () => {
@@ -316,13 +316,13 @@ describe('data selectors tests', () => {
             const to = moment();
             const from = moment(to).subtract(3, 'hours');
 
-            const formValues = {
+            const apiOptions = {
                 [dataStoreKeys.FROM_DATE]: from.valueOf(),
                 [dataStoreKeys.TO_DATE]: to.valueOf()
             };
 
             // ASSERT
-            expect(selectors.getGranularityFromFormValues(formValues)).toEqual(54);
+            expect(selectors.getGranularityFromApiOptions(apiOptions)).toEqual(54);
         });
 
         it('should return 432 when from and to are 1 day apart', () => {
@@ -330,17 +330,17 @@ describe('data selectors tests', () => {
             const to = moment();
             const from = moment(to).subtract(1, 'days');
 
-            const formValues = {
+            const apiOptions = {
                 [dataStoreKeys.FROM_DATE]: from.valueOf(),
                 [dataStoreKeys.TO_DATE]: to.valueOf()
             };
 
             // ASSERT
-            expect(selectors.getGranularityFromFormValues(formValues)).toEqual(432);
+            expect(selectors.getGranularityFromApiOptions(apiOptions)).toEqual(432);
         });
     });
 
-    describe('getFormValues()', () => {
+    describe('getApiOptions()', () => {
         let fromDate = '';
         let toDate = '';
 
@@ -380,7 +380,7 @@ describe('data selectors tests', () => {
             mockState = {
                 [dataStoreKeys.DATA]: {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
-                    [dataStoreKeys.FORM_VALUES]: {
+                    [dataStoreKeys.API_OPTIONS]: {
                         [dataStoreKeys.API]: 'CoinBase',
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
                         [dataStoreKeys.FROM_DATE]: fromDate,
@@ -393,7 +393,7 @@ describe('data selectors tests', () => {
             };
         });
 
-        it('should return the formValues slice with granularity and coin ids appended', () => {
+        it('should return the apiOptions slice with granularity and coin ids appended', () => {
             // ARRANGE
             const to = moment();
             const from = moment(to).subtract(200, 'seconds');
@@ -411,8 +411,8 @@ describe('data selectors tests', () => {
                 [dataStoreKeys.GRANULARITY]: 1
             };
 
-            const actual = selectors.getFormValues.resultFunc(
-                mockState[dataStoreKeys.DATA][dataStoreKeys.FORM_VALUES],
+            const actual = selectors.getApiOptions.resultFunc(
+                mockState[dataStoreKeys.DATA][dataStoreKeys.API_OPTIONS],
                 ['LTC-EUR', 'BTC-USD']
             );
 

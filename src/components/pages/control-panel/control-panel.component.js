@@ -7,8 +7,7 @@ import '../page-styles.css';
 
 class ControlPanel extends React.Component {
     static propTypes = {
-        formValues: PropTypes.object,
-        downloadData: PropTypes.func.isRequired,
+        apiOptions: PropTypes.object,
         fetchData: PropTypes.func.isRequired,
         fetchCoins: PropTypes.func.isRequired,
         firstTenHistoricPrices: PropTypes.array,
@@ -22,11 +21,7 @@ class ControlPanel extends React.Component {
     }
 
     fetchData = () => {
-        this.props.fetchData(this.props.formValues);
-    };
-
-    downloadData = () => {
-        this.props.downloadData();
+        this.props.fetchData(this.props.apiOptions);
     };
 
     handleFromDateChange = (value) => {
@@ -42,7 +37,7 @@ class ControlPanel extends React.Component {
     };
 
     render() {
-        const { formValues } = this.props;
+        const { apiOptions } = this.props;
 
         return (
             <Form>
@@ -54,31 +49,15 @@ class ControlPanel extends React.Component {
                                     <h2>Options</h2>
                                 </Row>
                                 <Row>
-                                    <FormGroup controlId="api">
-                                        <ControlLabel>Market: </ControlLabel>
-                                        <FormControl
-                                            componentClass="select"
-                                            placeholder="select"
-                                            onChange={this.handleFormChange}
-                                            value={formValues.api}
-                                        >
-                                            <option value="CoinBase">CoinBase</option>
-                                            <option value="Poloniex">Poloniex</option>
-                                            <option value="Genesis">Genesis</option>
-                                            <option value="Average">Average</option>
-                                        </FormControl>
-                                    </FormGroup>
-                                </Row>
-                                <Row>
                                     <FormGroup controlId="selectedCoin">
                                         <ControlLabel>Coin: </ControlLabel>
                                         <FormControl
-                                            value={formValues.selectedCoin}
+                                            value={apiOptions.selectedCoin}
                                             componentClass="select"
                                             placeholder="select"
                                             onChange={this.handleFormChange}
                                         >
-                                            {formValues.coins.map(coin =>
+                                            {apiOptions.coins.map(coin =>
                                                 <option key={coin} value={coin}>{coin}</option>
                                             )}
                                         </FormControl>
@@ -86,18 +65,19 @@ class ControlPanel extends React.Component {
                                 </Row>
                                 <Row className="row__padding--bottom">
                                     <ControlLabel>From: </ControlLabel>
-                                    <DatePicker id="from" onChange={this.handleFromDateChange} value={formValues.fromDate} />
+                                    <DatePicker id="from" onChange={this.handleFromDateChange} value={apiOptions.fromDate} />
                                 </Row>
                                 <Row className="row__padding--bottom">
                                     <ControlLabel>To: </ControlLabel>
-                                    <DatePicker id="to" onChange={this.handleToDateChange} value={formValues.toDate} />
+                                    <DatePicker id="to" onChange={this.handleToDateChange} value={apiOptions.toDate} />
                                 </Row>
                                 <Row>
                                     <FormGroup controlId="granularity">
                                         <ControlLabel>Granularity: </ControlLabel>
                                         <FormControl
                                             type="text"
-                                            value={formValues.granularity}
+                                            disabled={true}
+                                            value={apiOptions.granularity}
                                             placeholder="Enter seconds"
                                             onChange={this.handleFormChange}
                                         />
@@ -109,7 +89,7 @@ class ControlPanel extends React.Component {
                                         <FormControl
                                             type="text"
                                             onChange={this.handleFormChange}
-                                            value={formValues.dateFormat}
+                                            value={apiOptions.dateFormat}
                                         />
                                     </FormGroup>
 

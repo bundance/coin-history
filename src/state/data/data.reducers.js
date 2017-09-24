@@ -14,7 +14,7 @@ export default handleActions({
 function handleFormChange(state, action) {
     return {
         ...state,
-        [dataStoreKeys.FORM_VALUES]: Object.assign({}, state[dataStoreKeys.FORM_VALUES], action.payload)
+        [dataStoreKeys.API_OPTIONS]: Object.assign({}, state[dataStoreKeys.API_OPTIONS], action.payload)
     };
 }
 
@@ -28,8 +28,8 @@ function setHistoricPricesSample(state, action) {
 function setFromDate(state, action) {
     return {
         ...state,
-        [dataStoreKeys.FORM_VALUES]: Object.assign(
-            {}, state[dataStoreKeys.FORM_VALUES], { [dataStoreKeys.FROM_DATE]: action.payload }
+        [dataStoreKeys.API_OPTIONS]: Object.assign(
+            {}, state[dataStoreKeys.API_OPTIONS], { [dataStoreKeys.FROM_DATE]: action.payload }
         )
     }
 }
@@ -37,8 +37,8 @@ function setFromDate(state, action) {
 function setToDate(state, action) {
     return {
         ...state,
-        [dataStoreKeys.FORM_VALUES]: Object.assign(
-            {}, state[dataStoreKeys.FORM_VALUES], { [dataStoreKeys.TO_DATE]: action.payload }
+        [dataStoreKeys.API_OPTIONS]: Object.assign(
+            {}, state[dataStoreKeys.API_OPTIONS], { [dataStoreKeys.TO_DATE]: action.payload }
         )
     }
 }
