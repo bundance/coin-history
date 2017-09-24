@@ -57,7 +57,6 @@ export function* attemptFetchCoinsSaga() {
         const formValues = yield select(getFormValues);
 
         const coins = yield call(fetchCoins, { api: appHelpers.mapUIApiNameToMarketApiName(formValues.api) });
-
         yield put(dataActions.setCoins(coins));
     } catch(err) {
         console.log('*** bum, an error happened', { err });

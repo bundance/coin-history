@@ -3,10 +3,11 @@ import * as dataStoreKeys from '../../constants/store-keys/data-store-keys';
 import moment from 'moment';
 
 describe('data selectors tests', () => {
-    describe('getFirstXPrices()', () => {
-        let mockPricesCSV;
-        let mockState;
+    let mockPricesCSV;
+    let mockState;
+    let mockCoins;
 
+    describe('getFirstXPrices()', () => {
         beforeEach(() => {
             mockPricesCSV = `1503920460,1,2,3,4,5
                 1503920401,11,12,13,14,15
@@ -19,8 +20,7 @@ describe('data selectors tests', () => {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
                     [dataStoreKeys.FORM_VALUES]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
-                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
-                        [dataStoreKeys.GRANULARITY]: 200
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
                 }
             };
@@ -89,9 +89,6 @@ describe('data selectors tests', () => {
     });
 
     describe('getLastXPrices()', () => {
-        let mockPricesCSV;
-        let mockState;
-
         beforeEach(() => {
             mockPricesCSV = `1503920460,1,2,3,4,5
                 1503920401,11,12,13,14,15
@@ -104,8 +101,7 @@ describe('data selectors tests', () => {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
                     [dataStoreKeys.FORM_VALUES]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
-                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
-                        [dataStoreKeys.GRANULARITY]: 200
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
                 }
             };
@@ -174,9 +170,6 @@ describe('data selectors tests', () => {
     });
 
     describe('getHistoricPricesSample()', () => {
-        let mockPricesCSV;
-        let mockState;
-
         beforeEach(() => {
             mockPricesCSV = `1503920460,1,2,3,4,5
                 1503920400,11,12,13,14,15`;
@@ -186,8 +179,7 @@ describe('data selectors tests', () => {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
                     [dataStoreKeys.FORM_VALUES]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
-                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
-                        [dataStoreKeys.GRANULARITY]: 200
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
                 }
             };
@@ -225,9 +217,6 @@ describe('data selectors tests', () => {
     });
 
     describe('getReadableHistoricPrices()', () => {
-        let mockPricesCSV;
-        let mockState;
-
         beforeEach(() => {
             mockPricesCSV = `1503920460,1,2,3,4,5
                 1503920400,11,12,13,14,15`;
@@ -237,8 +226,7 @@ describe('data selectors tests', () => {
                     [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
                     [dataStoreKeys.FORM_VALUES]: {
                         [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
-                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
-                        [dataStoreKeys.GRANULARITY]: 200
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a'
                     }
                 }
             };
@@ -350,5 +338,85 @@ describe('data selectors tests', () => {
             // ASSERT
             expect(selectors.getGranularityFromFormValues(formValues)).toEqual(432);
         });
-    })
+    });
+
+    describe('getFormValues()', () => {
+        let fromDate = '';
+        let toDate = '';
+
+        beforeEach(() => {
+            mockPricesCSV = `1503920460,1,2,3,4,5
+                1503920401,11,12,13,14,15
+                1503920402,21,22,23,24,25
+                1503920403,31,32,33,34,35
+                1503920404,41,42,43,44,45`;
+
+            mockCoins = [
+                {
+                    "id": "LTC-EUR",
+                    "base_currency": "LTC",
+                    "quote_currency": "EUR",
+                    "base_min_size": "0.01",
+                    "base_max_size": "1000000",
+                    "quote_increment": "0.01",
+                    "display_name": "LTC/EUR",
+                    "margin_enabled": false
+                },
+                {
+                    "id": "BTC-USD",
+                    "base_currency": "BTC",
+                    "quote_currency": "USD",
+                    "base_min_size": "0.01",
+                    "base_max_size": "1000000",
+                    "quote_increment": "0.00001",
+                    "display_name": "BTC/USD",
+                    "margin_enabled": false
+                }
+            ];
+
+            toDate = moment();
+            fromDate = moment(toDate).subtract(200, 'seconds');
+
+            mockState = {
+                [dataStoreKeys.DATA]: {
+                    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: mockPricesCSV,
+                    [dataStoreKeys.FORM_VALUES]: {
+                        [dataStoreKeys.API]: 'CoinBase',
+                        [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
+                        [dataStoreKeys.FROM_DATE]: fromDate,
+                        [dataStoreKeys.SELECTED_COIN]: 'BTC-USD',
+                        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
+                        [dataStoreKeys.TO_DATE]: toDate
+                    },
+                    [dataStoreKeys.COINS]: mockCoins
+                }
+            };
+        });
+
+        it('should return the formValues slice with granularity and coin ids appended', () => {
+            // ARRANGE
+            const to = moment();
+            const from = moment(to).subtract(200, 'seconds');
+
+            const expected = {
+                [dataStoreKeys.FROM_DATE]: from.valueOf(),
+                [dataStoreKeys.TO_DATE]: to.valueOf(),
+                [dataStoreKeys.API]: 'CoinBase',
+                [dataStoreKeys.SELECTED_COIN]: 'BTC-USD',
+                [dataStoreKeys.COINS]: ['LTC-EUR', 'BTC-USD'],
+                [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
+                [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
+                [dataStoreKeys.FROM_DATE]: fromDate,
+                [dataStoreKeys.TO_DATE]: toDate,
+                [dataStoreKeys.GRANULARITY]: 1
+            };
+
+            const actual = selectors.getFormValues.resultFunc(
+                mockState[dataStoreKeys.DATA][dataStoreKeys.FORM_VALUES],
+                ['LTC-EUR', 'BTC-USD']
+            );
+
+            expect(actual).toEqual(expected);
+        });
+    });
 });

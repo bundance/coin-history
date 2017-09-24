@@ -116,7 +116,6 @@ class ControlPanel extends React.Component {
                                 </Row>
                                 <Row>
                                     <Button onClick={this.fetchData}>Fetch Data Sample</Button>
-                                    <Button onClick={this.downloadData}>Download Data</Button>
                                 </Row>
                             </Well>
                         </Col>
