@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ControlPanel from './control-panel.component';
-import { downloadData, fetchData, fetchCoins, handleFormChange, setFromDate, setToDate } from '../../../state/data/data.actions';
+import { fetchData, fetchCoins, handleFormChange, setFromDate, setToDate } from '../../../state/data/data.actions';
 import { getApiOptions, getFirstXPrices, getLastXPrices } from '../../../state/data/data.selectors';
 
 const mapStateToProps = (state) => ({
@@ -10,7 +10,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = ({
-    downloadData,
     fetchData,
     fetchCoins,
     handleFormChange,

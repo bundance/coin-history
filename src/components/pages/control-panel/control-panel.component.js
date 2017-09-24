@@ -8,7 +8,6 @@ import '../page-styles.css';
 class ControlPanel extends React.Component {
     static propTypes = {
         apiOptions: PropTypes.object,
-        downloadData: PropTypes.func.isRequired,
         fetchData: PropTypes.func.isRequired,
         fetchCoins: PropTypes.func.isRequired,
         firstTenHistoricPrices: PropTypes.array,
@@ -23,10 +22,6 @@ class ControlPanel extends React.Component {
 
     fetchData = () => {
         this.props.fetchData(this.props.apiOptions);
-    };
-
-    downloadData = () => {
-        this.props.downloadData();
     };
 
     handleFromDateChange = (value) => {
