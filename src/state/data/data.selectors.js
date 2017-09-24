@@ -9,7 +9,7 @@ import appHelpers from '../../helpers/app.helpers';
 ////// STATE SELECTORS //////
 
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
-export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
+export const selectApiOptions = R.path([dataStoreKeys.DATA, dataStoreKeys.API_OPTIONS]);
 export const selectCoins = R.path([dataStoreKeys.DATA, dataStoreKeys.COINS]);
 
 ////// SIMPLE GETTERS //////
@@ -20,22 +20,22 @@ export const getCoinIds = createSelector(
 );
 
 export const getToDate = createSelector(
-    [selectFormValues],
+    [selectApiOptions],
     R.prop(dataStoreKeys.TO_DATE)
 );
 
 export const getFromDate = createSelector(
-    [selectFormValues],
+    [selectApiOptions],
     R.prop(dataStoreKeys.FROM_DATE)
 );
 
 export const getDateFormat = createSelector(
-    [selectFormValues],
+    [selectApiOptions],
     R.prop(dataStoreKeys.DATE_FORMAT)
 );
 
 export const getTimeFormat = createSelector(
-    [selectFormValues],
+    [selectApiOptions],
     R.prop(dataStoreKeys.TIME_FORMAT)
 );
 
@@ -57,23 +57,23 @@ export const getGranularity = createSelector(
 );
 
 
-export const getGranularityFromFormValues = R.converge(
+export const getGranularityFromApiOptions = R.converge(
     calculateGranularity, [R.path([dataStoreKeys.FROM_DATE]), R.path([dataStoreKeys.TO_DATE])]
 );
 
 
-const appendGranularityToFormValues = R.converge(R.merge, [
+const appendGranularityToApiOptions = R.converge(R.merge, [
     R.identity,
-    helpers.asObj('granularity', getGranularityFromFormValues)
+    helpers.asObj('granularity', getGranularityFromApiOptions)
 ]);
 
-////// ASSEMBLE THE formValues OBJECT /////
+////// ASSEMBLE THE apiOptions OBJECT /////
 
-export const getFormValues = createSelector(
-    [selectFormValues, getCoinIds],
+export const getApiOptions = createSelector(
+    [selectApiOptions, getCoinIds],
     R.useWith(
         R.merge, [
-            appendGranularityToFormValues,
+            appendGranularityToApiOptions,
             helpers.asObj('coins', R.identity)
         ]
     )
@@ -167,11 +167,11 @@ export const getLastXPrices = x => createSelector(
 ////// HELPERS //////
 const getApiNameFromFormValue = R.path(['api']);
 
-export function getMarketApiName(formValues) {
+export function getMarketApiName(apiOptions) {
     return R.compose(
         appHelpers.mapUIApiNameToMarketApiName,
         getApiNameFromFormValue
-    )(formValues);
+    )(apiOptions);
 }
 
 
