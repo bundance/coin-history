@@ -10,6 +10,9 @@ const actions = createActions(
     dataTypes.DATA_HANDLE_FORM_CHANGE,
     dataTypes.DOWNLOAD_DATA,
     dataTypes.FETCH_DATA,
+    dataTypes.FETCH_COINS,
+    dataTypes.GET_COINS,
+    dataTypes.SET_COINS,
     dataTypes.SET_HISTORIC_PRICES_SAMPLE
 );
 
@@ -17,6 +20,9 @@ const {
     dataHandleFormChange,
     downloadData,
     fetchData,
+    fetchCoins,
+    getCoins,
+    setCoins,
     setFromDate,
     setToDate,
     setHistoricPricesSample
@@ -26,6 +32,9 @@ export {
     dataHandleFormChange as handleFormChange,
     downloadData,
     fetchData,
+    fetchCoins,
+    getCoins,
+    setCoins,
     setFromDate,
     setToDate,
     setHistoricPricesSample

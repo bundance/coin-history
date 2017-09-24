@@ -6,8 +6,18 @@ import moment from 'moment';
 import helpers from '../../utils/helpers';
 import appHelpers from '../../helpers/app.helpers';
 
+////// STATE SELECTORS //////
+
 export const selectHistoricPricesSample = R.path([dataStoreKeys.DATA, dataStoreKeys.HISTORIC_PRICES_SAMPLE]);
 export const selectFormValues = R.path([dataStoreKeys.DATA, dataStoreKeys.FORM_VALUES]);
+export const selectCoins = R.path([dataStoreKeys.DATA, dataStoreKeys.COINS]);
+
+////// SIMPLE GETTERS //////
+
+export const getCoinIds = createSelector(
+    [selectCoins],
+    R.map(coin => coin.id)
+);
 
 export const getToDate = createSelector(
     [selectFormValues],
@@ -28,6 +38,8 @@ export const getTimeFormat = createSelector(
     [selectFormValues],
     R.prop(dataStoreKeys.TIME_FORMAT)
 );
+
+////// GRANULARITY CALCULATOR //////
 
 const granularityDivisor = R.divide(R.__, 200);
 const diffInSecs = (from, to) => moment(to).diff(moment(from), 'seconds');
@@ -50,13 +62,43 @@ export const getGranularityFromFormValues = R.converge(
 );
 
 
+const appendGranularityToFormValues = R.converge(R.merge, [
+    R.identity,
+    helpers.asObj('granularity', getGranularityFromFormValues)
+]);
+
+////// ASSEMBLE THE formValues OBJECT /////
+
 export const getFormValues = createSelector(
-    [selectFormValues],
-    R.converge(R.merge, [
-        R.identity,
-        helpers.asObj('granularity', getGranularityFromFormValues)])
+    [selectFormValues, getCoinIds],
+    R.useWith(
+        R.merge, [
+            appendGranularityToFormValues,
+            helpers.asObj('coins', R.identity)
+        ]
+    )
 );
 
+
+////// TIME AND DATE FORMATTERS //////
+
+const getFormattedDateTime = R.curry((dateFormat, timeFormat, dt) => ({
+    date: moment(dt).format(dateFormat),
+    time: moment(dt).format(timeFormat)
+}));
+
+export const getDateFromPrice = R.converge(R.multiply(1000), [R.path([dataStoreKeys.TIMESTAMP])]);
+
+const getFormattedDateTimeFromPrice = R.curry((dateFormat, timeFormat) =>
+    R.compose(getFormattedDateTime(dateFormat, timeFormat), getDateFromPrice)
+);
+
+////// HISTORIC PRICES //////
+
+const addHeadersToData = R.map(R.zipObj([
+    dataStoreKeys.TIMESTAMP, dataStoreKeys.OPEN, dataStoreKeys.CLOSE,
+    dataStoreKeys.HIGH, dataStoreKeys.LOW, dataStoreKeys.VOLUME]
+));
 
 /**
  * getHistoricPricesSample object - pass in the state object, and it returns an
@@ -66,7 +108,7 @@ export const getFormValues = createSelector(
  *  `1503920460,1,2,3,4,5
  *   1503920400,11,12,13,14,15`;
  *
- *  The compose function then converts this to an array of formatted objects, like this:
+ *  addHeadersToData then converts this to an array of formatted objects, like this:
  *   [{
         date: 1503920460,
         open: 1,
@@ -87,23 +129,10 @@ export const getFormValues = createSelector(
 export const getHistoricPricesSample = createSelector(
     [selectHistoricPricesSample],
     R.compose(
-        R.map(R.zipObj([dataStoreKeys.TIMESTAMP, dataStoreKeys.OPEN, dataStoreKeys.CLOSE,
-            dataStoreKeys.HIGH, dataStoreKeys.LOW, dataStoreKeys.VOLUME])),
+        addHeadersToData,
         R.path([dataStoreKeys.DATA]),
-        R.partialRight(Papa.parse, [{ dynamicTyping: true }])
+        R.partialRight(Papa.parse, [{ dynamicTyping: true }]) // Parses the CSV from selectHistoricPricesSample
     )
-);
-
-
-const getFormattedDateTime = R.curry((dateFormat, timeFormat, dt) => ({
-    date: moment(dt).format(dateFormat),
-    time: moment(dt).format(timeFormat)
-}));
-
-export const getDateFromPrice = R.converge(R.multiply(1000), [R.path([dataStoreKeys.TIMESTAMP])]);
-
-const getFormattedDateTimeFromPrice = R.curry((dateFormat, timeFormat) =>
-    R.compose(getFormattedDateTime(dateFormat, timeFormat), getDateFromPrice)
 );
 
 export const getFormattedHistoricPrices = R.curry((dateFormat, timeFormat, prices) =>

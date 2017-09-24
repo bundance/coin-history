@@ -3,12 +3,14 @@ import moment from 'moment';
 
 export default {
     [dataStoreKeys.FORM_VALUES]: {
-        api: 'CoinBase',
-        coin: 'Bitcoin',
-        dateFormat: 'DD-MM-YY',
-        timeFormat: 'h:mm:ss a',
-        fromDate: moment().startOf('day').toISOString(),
-        toDate: moment().endOf('day').toISOString()
+        [dataStoreKeys.API]: 'CoinBase',
+        [dataStoreKeys.SELECTED_COIN]: 'BTC-USD',
+        [dataStoreKeys.COINS]: [],
+        [dataStoreKeys.DATE_FORMAT]: 'DD-MM-YY',
+        [dataStoreKeys.TIME_FORMAT]: 'h:mm:ss a',
+        [dataStoreKeys.FROM_DATE]: moment().startOf('day').toISOString(),
+        [dataStoreKeys.TO_DATE]: moment().endOf('day').toISOString()
     },
-    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: ''
+    [dataStoreKeys.HISTORIC_PRICES_SAMPLE]: '',
+    [dataStoreKeys.COINS]: [],
 }

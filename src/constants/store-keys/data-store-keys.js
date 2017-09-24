@@ -1,15 +1,17 @@
-export const HISTORIC_PRICES_SAMPLE = 'historicPricesSample';
+export const API = 'api';
+export const CLOSE = 'close';
+export const COINS = 'coins';
 export const DATA = 'data';
 export const DATE_FORMAT = 'dateFormat';
 export const FROM_DATE = 'fromDate';
-export const TIME_FORMAT = 'timeFormat';
-export const TO_DATE = 'toDate';
 export const FORM_VALUES = 'formValues';
 export const GRANULARITY = 'granularity';
-
-export const TIMESTAMP = 'timestamp';
-export const OPEN = 'open';
-export const CLOSE = 'close';
 export const HIGH = 'high';
+export const HISTORIC_PRICES_SAMPLE = 'historicPricesSample';
 export const LOW = 'low';
+export const OPEN = 'open';
+export const SELECTED_COIN = 'selectedCoin';
+export const TIME_FORMAT = 'timeFormat';
+export const TIMESTAMP = 'timestamp';
+export const TO_DATE = 'toDate';
 export const VOLUME = 'volume';

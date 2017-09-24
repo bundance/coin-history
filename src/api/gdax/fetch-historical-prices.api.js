@@ -23,3 +23,10 @@ export const fetchHistoricalPrices = (opts) => {
     return fetch(endpoint + qs)
         .then(response => response.json());
 };
+
+export const fetchCoins = (opts) => {
+    const endpoint = getEndpoint(endpointNames.COINS, opts.api)();
+
+    return fetch(endpoint)
+        .then(response => response.json());
+};
