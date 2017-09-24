@@ -76,6 +76,7 @@ class ControlPanel extends React.Component {
                                         <ControlLabel>Granularity: </ControlLabel>
                                         <FormControl
                                             type="text"
+                                            disabled={true}
                                             value={apiOptions.granularity}
                                             placeholder="Enter seconds"
                                             onChange={this.handleFormChange}
