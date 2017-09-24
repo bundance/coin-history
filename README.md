@@ -7,7 +7,7 @@ will then show the first and last ten entries returned from the GDAX API.
 # Installing the app
 Clone this repo into a folder on your machine
 
-#R unning the app
+# Running the app
 Run the app using
 
 `npm run start`
@@ -19,7 +19,7 @@ To run the unit tests, enter:
 
 `npm run test`
 
-#F AQ
+# FAQ
 ## Why has this app been written?
 The GDAX `getHistoricRates()` endpoint can be a bit confusing, as it will only return a maximum of 200 candles for any 
 one request. If there are more than 200 candles between your start and end times, the request will be rejected.
