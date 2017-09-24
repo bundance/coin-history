@@ -5,7 +5,9 @@ With it, you can fetch the coin history for Bitcoin, Litecoin or Ethereum for an
 will then show the first and last ten entries returned from the GDAX API.
 
 # Installing the app
-Clone this repo into a folder on your machine
+Clone this repo into a folder on your machine. The enter:
+
+`npm install`
 
 # Running the app
 Run the app using:
