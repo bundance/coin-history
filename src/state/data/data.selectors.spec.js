@@ -30,23 +30,23 @@ describe('data selectors tests', () => {
             const actual = selectors.getFirstXPrices(2)(mockState);
 
             const expected = [{
-                close: 2,
-                date: "28-08-17",
-                high: 3,
-                low: 4,
-                open: 1,
-                time: "12:41:00 pm",
-                timestamp: 1503920460,
-                volume: 5
+                "close": 4,
+                "date": "28-08-17",
+                "high": 2,
+                "low": 1,
+                "open": 3,
+                "time": "12:41:00 pm",
+                "timestamp": 1503920460,
+                "volume": 5
             }, {
-                close: 12,
-                date: "28-08-17",
-                high: 13,
-                low: 14,
-                open: 11,
-                time: "12:40:01 pm",
-                timestamp: 1503920401,
-                volume: 15
+                "close": 14,
+                "date": "28-08-17",
+                "high": 12,
+                "low": 11,
+                "open": 13,
+                "time": "12:40:01 pm",
+                "timestamp": 1503920401,
+                "volume": 15
             }];
 
             expect(actual).toEqual(expected);
@@ -56,32 +56,32 @@ describe('data selectors tests', () => {
             const actual = selectors.getFirstXPrices(3)(mockState);
 
             const expected = [{
-                close: 2,
-                date: '28-08-17',
-                high: 3,
-                low: 4,
-                open: 1,
-                time: '12:41:00 pm',
-                timestamp: 1503920460,
-                volume: 5
+                "close": 4,
+                "date": "28-08-17",
+                "high": 2,
+                "low": 1,
+                "open": 3,
+                "time": "12:41:00 pm",
+                "timestamp": 1503920460,
+                "volume": 5
             }, {
-                close: 12,
-                date: '28-08-17',
-                high: 13,
-                low: 14,
-                open: 11,
-                time: '12:40:01 pm',
-                timestamp: 1503920401,
-                volume: 15
+                "close": 14,
+                "date": "28-08-17",
+                "high": 12,
+                "low": 11,
+                "open": 13,
+                "time": "12:40:01 pm",
+                "timestamp": 1503920401,
+                "volume": 15
             }, {
-                close: 22,
-                date: '28-08-17',
-                high: 23,
-                low: 24,
-                open: 21,
-                time: '12:40:02 pm',
-                timestamp: 1503920402,
-                volume: 25
+                "close": 24,
+                "date": "28-08-17",
+                "high": 22,
+                "low": 21,
+                "open": 23,
+                "time": "12:40:02 pm",
+                "timestamp": 1503920402,
+                "volume": 25
             }];
 
             expect(actual).toEqual(expected);
@@ -111,23 +111,23 @@ describe('data selectors tests', () => {
             const actual = selectors.getLastXPrices(2)(mockState);
 
             const expected = [{
-                close: 32,
-                date: '28-08-17',
-                high: 33,
-                low: 34,
-                open: 31,
-                time: '12:40:03 pm',
-                timestamp: 1503920403,
-                volume: 35
+                "close": 34,
+                "date": "28-08-17",
+                "high": 32,
+                "low": 31,
+                "open": 33,
+                "time": "12:40:03 pm",
+                "timestamp": 1503920403,
+                "volume": 35
             }, {
-                close: 42,
-                date: '28-08-17',
-                high: 43,
-                low: 44,
-                open: 41,
-                time: '12:40:04 pm',
-                timestamp: 1503920404,
-                volume: 45
+                "close": 44,
+                "date": "28-08-17",
+                "high": 42,
+                "low": 41,
+                "open": 43,
+                "time": "12:40:04 pm",
+                "timestamp": 1503920404,
+                "volume": 45
             }];
 
             expect(actual).toEqual(expected);
@@ -137,32 +137,32 @@ describe('data selectors tests', () => {
             const actual = selectors.getLastXPrices(3)(mockState);
 
             const expected = [{
-                close: 22,
-                date: '28-08-17',
-                high: 23,
-                low: 24,
-                open: 21,
-                time: '12:40:02 pm',
-                timestamp: 1503920402,
-                volume: 25
+                "close": 24,
+                "date": "28-08-17",
+                "high": 22,
+                "low": 21,
+                "open": 23,
+                "time": "12:40:02 pm",
+                "timestamp": 1503920402,
+                "volume": 25
             }, {
-                close: 32,
-                date: '28-08-17',
-                high: 33,
-                low: 34,
-                open: 31,
-                time: '12:40:03 pm',
-                timestamp: 1503920403,
-                volume: 35
+                "close": 34,
+                "date": "28-08-17",
+                "high": 32,
+                "low": 31,
+                "open": 33,
+                "time": "12:40:03 pm",
+                "timestamp": 1503920403,
+                "volume": 35
             }, {
-                close: 42,
-                date: '28-08-17',
-                high: 43,
-                low: 44,
-                open: 41,
-                time: '12:40:04 pm',
-                timestamp: 1503920404,
-                volume: 45
+                "close": 44,
+                "date": "28-08-17",
+                "high": 42,
+                "low": 41,
+                "open": 43,
+                "time": "12:40:04 pm",
+                "timestamp": 1503920404,
+                "volume": 45
             }];
 
             expect(actual).toEqual(expected);
@@ -197,20 +197,13 @@ describe('data selectors tests', () => {
             const actual = selectors.getHistoricPricesSample(mockState);
 
             const expected = [{
-                close: 2,
-                high: 3,
-                low: 4,
-                open: 1,
-                timestamp: 1503920460,
-                volume: 5
-            }, {
-                close: 12,
-                high: 13,
-                low: 14,
-                open: 11,
-                timestamp: 1503920400,
-                volume: 15
-            }];
+                "close": 4,
+                "high": 2,
+                "low": 1,
+                "open": 3,
+                "timestamp": 1503920460,
+                "volume": 5
+            }, {"close": 14, "high": 12, "low": 11, "open": 13, "timestamp": 1503920400, "volume": 15}];
 
             expect(actual).toEqual(expected);
         })
@@ -244,23 +237,23 @@ describe('data selectors tests', () => {
             const actual = selectors.getReadableHistoricPrices(mockState);
 
             const expected = [{
-                close: 2,
-                date: '28-08-17',
-                high: 3,
-                low: 4,
-                open: 1,
-                time: '12:41:00 pm',
-                timestamp: 1503920460,
-                volume: 5
+                "close": 4,
+                "date": "28-08-17",
+                "high": 2,
+                "low": 1,
+                "open": 3,
+                "time": "12:41:00 pm",
+                "timestamp": 1503920460,
+                "volume": 5
             }, {
-                close: 12,
-                date: '28-08-17',
-                high: 13,
-                low: 14,
-                open: 11,
-                time: '12:40:00 pm',
-                timestamp: 1503920400,
-                volume: 15
+                "close": 14,
+                "date": "28-08-17",
+                "high": 12,
+                "low": 11,
+                "open": 13,
+                "time": "12:40:00 pm",
+                "timestamp": 1503920400,
+                "volume": 15
             }];
 
             expect(actual).toEqual(expected);
