@@ -36,6 +36,7 @@ const About = () =>  (
             becomes tricky.
         </p>
         <p>This app therefore makes it easy by calculating it for you.</p>
+        <p>To see the network API requests that are made, just open your browser's dev tools</p>
         <p>The returned data is displayed as the first ten datapoints, and the last ten. If you wish to see the date
             and time of each datapoint in a different format, just enter
             a <i><a href="https://momentjs.com/">MomentJS-specific</a></i> format in the Date Format box, and the date

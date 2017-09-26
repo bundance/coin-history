@@ -29,7 +29,7 @@ candles between your start and end times, the request will be rejected. When tha
 your request to get the API to return the data you want.
   
 In order to make a successful request between two times, you must set a parameter called `granularity`, which specifies 
-the time interval, in seconds, that should be used for each candle. By default, `grnaularity` is 1, meaning you will 
+the time interval, in seconds, that should be used for each candle. By default, `granularity` is 1, meaning you will 
 receive data corresponding to 1 candle per second between your start and end times.
 
 If, however, your start and end times are more than 200 seconds apart, you must change the granularity parameter. For 
